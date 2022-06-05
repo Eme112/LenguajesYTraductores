@@ -11,8 +11,12 @@
 # 3. Como manejar los prints/inputs
 # R: 
 
+from lzma import MODE_NORMAL
+from tkinter import E
+from numpy import char
 import ply.lex as lex
 import ply.yacc as yacc
+import sys
 
 ###         TOKENS Y PALABRAS RESERVADAS         ###
 
@@ -86,12 +90,12 @@ t_ASIGNACION = r'=>'
 # Definicion de otros tokens
 def t_VALOR_INT(t):
     r'\d+'
-    t.value = int(t.value)
+    t.value = int(t.value)    
     return t
 
 def t_VALOR_FLOAT(t):
     r'\d+'
-    t.value = float(t.value)
+    t.value = float(t.value)    
     return t
 
 def t_ID(t):
@@ -272,6 +276,7 @@ parser = yacc.yacc()
 
 
 
+
 inputString = '''
 procedure main():
     int : num1[3][2];
@@ -303,10 +308,11 @@ parser.parse(inputString)
 # Give the lexer some input
 lexer.input(inputString)
 
-
+"""
 # Tokenize
 while True:
     tok = lexer.token()
     if not tok: 
         break      # No more input
     print(tok) 
+"""
