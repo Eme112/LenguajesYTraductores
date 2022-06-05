@@ -1,0 +1,15 @@
+
+
+procedure suma():
+	int num1;
+    int num2;
+    int res;	
+begin;
+    res => num1 + num2;
+end procedure;
+
+procedure main():
+    int num1;
+begin;
+    num1 = suma();
+end main;

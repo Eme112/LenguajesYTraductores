@@ -1,0 +1,10 @@
+procedure enterMatrix(int number_of_rows, int number_of_columns, float matrix) {
+	int row;	
+int column;
+begin;
+for row => 0; row < number_of_rows; row => row+1 {
+	for column => 0; column < number_of_columns; column=> column+1 {
+matrix[row][column] => input(“Please enter the value of the element [“ + string(row) + “][“ + string(column) + “] of the matrix”);
+		}
+	}
+}
