@@ -1,16 +1,22 @@
 # Autor: Emerico Pedraza Gomez
 # Matricula: A01382216
-# Fecha: 25 de abril de 2022
-# Tercera entrega de proyecto
+# Nombre del Lenguaje: MP4
 
 ####################         NOTAS         ####################
-# 1. Siempre marca error en la última línea
+# 1. Siempre marca error en la última línea (cuando hay mas de un procedure) o al finalizar un loop
 # R: 
 # 2. Como manejar la impresión de texto en strings?
 # R: 
+# 3. No detecto valores float, me marca error de sintaxis
+# R:
+# 4. Problemas para imprimir la linea al tener un error en la tabla de simbolos
+# R: 
 
+from inspect import stack
+from turtle import st
 import ply.lex as lex
 import ply.yacc as yacc
+
 
 ####################         TOKENS Y PALABRAS RESERVADAS         ####################
 # Definicion de palabras reservadas
@@ -41,7 +47,7 @@ tokens = [
     'MAS', 'MENOS', 'POR', 'ENTRE', 'MODULO',
     'COMILLAS',
     'PARENTESIS_IZQUIERDO', 'PARENTESIS_DERECHO', 'CORCHETE_IZQUIERDO', 'CORCHETE_DERECHO',
-    'DOS_PUNTOS', 'PUNTO_COMA',
+    'PUNTO', 'DOS_PUNTOS', 'PUNTO_COMA',
     'VALOR_INT', 'VALOR_FLOAT',
     'ID', 'TEXTO',
     'ASIGNACION',
@@ -54,27 +60,22 @@ t_MENOR_IGUAL = r'<='
 t_MAYOR_IGUAL = r'>='
 t_IGUAL = r'=='
 t_DIFERENTE = r'\'='
-
 t_AND = r'&'
 t_OR = r'\|'
 t_NOT = r'\''
-
 t_MAS = r'\+'
 t_MENOS = r'-'
 t_POR = r'\*'
 t_ENTRE = r'/'
 t_MODULO = r'%'
-
 t_COMILLAS = r'\"'
-
 t_PARENTESIS_IZQUIERDO = r'\('
 t_PARENTESIS_DERECHO = r'\)'
 t_CORCHETE_IZQUIERDO = r'\['
 t_CORCHETE_DERECHO = r'\]'
-
+t_PUNTO = r'\.'
 t_DOS_PUNTOS = r'\:'
 t_PUNTO_COMA = r'\;'
-
 t_ASIGNACION = r'=>'
 
 # Definicion de otros tokens
@@ -84,7 +85,7 @@ def t_VALOR_INT(t):
     return t
 
 def t_VALOR_FLOAT(t):
-    r'\d+.d+'
+    r'\d+\.\d+'
     t.value = float(t.value)    
     return t
 
@@ -114,6 +115,7 @@ def t_error(t):
 # Construir el lexer
 lexer = lex.lex()
 
+
 ####################         TABLA DE SÍMBOLOS         ####################
 
 # Funcion para agregar IDs a la tabla de símbolos
@@ -127,10 +129,28 @@ def agregarATablaSimbolos(p, id_index, type_index):
     else:
         tabla_simbolos[identificador] = [tipo, index_tabla] # Se agrega el identificador y su tipo a la tabla de símbolos
         index_tabla += 1                                    # Se incrementa el índice de la tabla de símbolos
-        print('[',identificador,':',tipo,"] agregado a la tabla de símbolos")
 
 index_tabla = 0     # Variable para el índice de la tabla de símbolos
 tabla_simbolos = {} # Lista para guardar nombres de variables y funciones/procedimientos
+
+
+####################         CUADRUPLOS         ####################
+
+stack_operandos = []
+cuadruplos = []
+cuadruplo_actual = 0
+lista_temporales = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12', 'T13', 'T14', 'T15', 'T16', 'T17', 'T18', 'T19', 'T20', 'T21', 'T22', 'T23', 'T24', 'T25']
+jerarquia4 = ['<', '>', '<=', '>=', '==', '\'=']
+jerarquia3 = ['|', '+', '-']
+jerarquia2 = ['&', '*', '/', '%']
+jerarquia1 = ['\'']
+
+def guardarCuadruplo(operador, op1, op2, res):
+    global cuadruplos
+    global cuadruplo_actual
+    cuadruplo_actual += 1
+    cuadruplos.append([operador, op1, op2, res])
+    print("Cuadruplo añadido -->", cuadruplo_actual, ": [", operador, op1, op2, res, "]")
 
 
 ####################         GRAMATICA         ####################
@@ -156,13 +176,28 @@ def p_C(p):
 def p_E(p):
     '''E : E2
          | E2 C E2'''
-
+    # Revisar si hay alguna comparacion en la expresion y agregar cuadruplo
+    for i in p:
+        if i in jerarquia4:
+            op2 = stack_operandos.pop()
+            op1 = stack_operandos.pop()
+            res = lista_temporales.pop()
+            guardarCuadruplo(i, op1, op2, res)
+            break
+            
 # Expresiones 2
 def p_E2(p):
     '''E2 : E3
           | E2 OR E3
           | E2 MAS E3
           | E2 MENOS E3'''
+    # Revisar si hay algun OR, MAS o MENOS en la expresion y agregar cuadruplo
+    for i in p:
+        if i in jerarquia3:
+            op1 = stack_operandos.pop()
+            res = lista_temporales.pop()
+            guardarCuadruplo(i, op1, None, res)
+            break
 
 # Expresiones 3
 def p_E3(p):
@@ -171,11 +206,25 @@ def p_E3(p):
           | E3 POR E4
           | E3 ENTRE E4
           | E3 MODULO E4'''
+    # Revisar si hay algun AND, POR, ENTRE o MODULO en la expresion y agregar cuadruplo
+    for i in p:
+        if i in jerarquia2:
+            op1 = stack_operandos.pop()
+            res = lista_temporales.pop()
+            guardarCuadruplo(i, op1, None, res)
+            break
 
 # Expresiones 4
 def p_E4(p):
     '''E4 : T
           | NOT T'''
+    # Revisar si hay algun NOT en la expresion y agregar cuadruplo
+    for i in p:
+        if i in jerarquia1:
+            op1 = stack_operandos.pop()
+            res = lista_temporales.pop()
+            guardarCuadruplo(i, op1, None, res)
+            break
 
 # Terminos
 def p_T(p):
@@ -185,10 +234,17 @@ def p_T(p):
          | VALOR_INT
          | VALOR_FLOAT'''
     # verificar que, si es un ID (no es nada de lo demas), este exista en la tabla de simbolos
-    if p[1] != 'PARENTESIS_IZQUIERDO':
+    if p[1] != '(':
         if str(p[1])[0] >= 'a' and str(p[1])[0] <= 'z':     # Asegurarse de que no sea un numero
             if p[1] not in tabla_simbolos:
                 print("Error[linea]: ID -->", p[1], "<-- no definido")
+    # Añadir terminales a la pila de operandos
+    if p[1] != '(':
+        if str(p[1])[0] >= 'a' and str(p[1])[0] <= 'z':     # Si no es un numero, revisar si es ID
+            if p[1] in tabla_simbolos:
+                stack_operandos.append(p[1])
+        elif type(p[1]) == int or type(p[1]) == float:      # Si es un numero, añadirlo a la pila de operandos
+            stack_operandos.append(p[1])
 
 # Nombre de variables
 def p_ID_COMPLETO(p):
@@ -223,7 +279,10 @@ def p_A(p):
          | ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO''' # Penúltima línea para el llamado de funciones con valor de retorno
     # Verificar que la primer variable (a la que se le actualizara su valor) exista
     if not (p[1] in tabla_simbolos):
-        print("Error[linea]: ID -->", p[1], "<-- no ha sido definido con anterioridad")
+        print("Error[linea]: ID -->", p[1], "<-- definido con anterioridad")
+    # Si ya existe, añadir a la pila de operandos
+    else:
+        stack_operandos.append(p[1])
     # Si hay otro ID despues de la asignacion, verificar que este tambien exista
     for i in range(2, len(p)):
         if p[i] == '=>':
@@ -231,6 +290,13 @@ def p_A(p):
                 if not (p[i+1] in reserved):                           # Asegurarse de que no sea una palabra reservada
                     if p[i+1] not in tabla_simbolos:                        # Verificar si el ID no existe
                         print("Error[linea]: ID -->", p[i+1], "<-- no definido")
+    # Añadir terminales a la pila de operandos
+    if type(p[1]) == int or type(p[1]) == float:      # Si es un numero, añadirlo a la pila de operandos
+        stack_operandos.append(p[1])
+    # Cuadruplos
+    op1 = stack_operandos.pop()
+    res = lista_temporales.pop()
+    guardarCuadruplo('=>', op1, None, res)
 
 # Estatutos
 def p_EST(p):
@@ -298,7 +364,7 @@ def p_MP(p):
 # Programa
 def p_PROGRAMA(p):
     '''PROGRAMA : MP PROGRAMA_H'''
-    print("\tSINTAXIS CORRECTA!")
+    print("\n\tSINTAXIS CORRECTA!\n")
 def p_PROGRAMA_H(p):
     '''PROGRAMA_H : empty
                   | P PROGRAMA_H
@@ -315,7 +381,7 @@ parser = yacc.yacc()
 
 # Abrir y seleccionar archivo para texto de entrada
 try:
-    fp = open("programaPrueba2.txt", "r")
+    fp = open("programaPrueba1.txt", "r")
     inputString = fp.read()
     fp.close()
 except FileNotFoundError:
@@ -325,4 +391,6 @@ parser.parse(inputString)
 # Give the lexer some input
 lexer.input(inputString)
 
-print("\n\nTabla de simbolos: \n", tabla_simbolos)
+#print("\nTabla de simbolos:\n",tabla_simbolos)
+print("\nStack de operandos:\n", stack_operandos)
+print("\nLista de cuádruplos:\n", cuadruplos)

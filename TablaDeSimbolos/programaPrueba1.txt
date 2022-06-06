@@ -1,0 +1,23 @@
+procedure main():
+    int : num1;
+    float : num2;
+begin;
+    num1 => PROC1();
+    num2 => 3;
+end procedure;
+
+procedure PROC1():
+    int : a;
+    float : b;
+    int : c[2][2];
+begin;
+    a => b + c[1][0];
+    print("");
+    input();
+end procedure;
+
+procedure PROC_REPETIDO():
+
+begin;
+    a => b & c;
+end procedure;

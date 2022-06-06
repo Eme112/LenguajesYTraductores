@@ -1,0 +1,14 @@
+procedure main():
+    int : num1;
+    float : num2;
+    int : a;
+    int : b;
+    int : c;
+    int : d;
+    int : e;
+    int : f;
+    int : g;
+    int : h;
+begin;
+    num1 => b * f;
+end procedure;

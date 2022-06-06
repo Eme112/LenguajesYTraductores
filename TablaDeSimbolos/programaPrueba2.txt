@@ -1,0 +1,29 @@
+procedure main():
+    int : num1;
+    float : num2;
+begin;
+    num1 => PROC1();
+    num2 => 3;
+    var_no_definida => num1 + num2*7;
+end procedure;
+
+procedure PROC1():
+    int : a;
+    float : b;
+    int : c[2][2];
+begin;
+    a => b + c[1][0];
+    print("");
+    input();
+end procedure;
+
+procedure PROC_REPETIDO():
+begin;
+    a => b & c;
+end procedure;
+
+procedure PROC_REPETIDO():
+begin;
+    a => b & c;
+    var_no_definida2 => num1 + num2*7;
+end procedure;

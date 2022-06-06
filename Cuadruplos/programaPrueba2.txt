@@ -1,0 +1,15 @@
+procedure main():
+    int : num1;
+    float : num2;
+    int : a;
+    int : b;
+    int : c;
+    int : d;
+    int : e;
+    int : f;
+    int : g;
+    int : h;
+begin;
+    num1 => a+b+ c*(d+e*(e + g + h)+ b) + a*b*c - 222*31419;
+    num2 =>  (a>b) & (b <c) | (d == e) & (e <=f);
+end procedure;

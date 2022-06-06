@@ -1,0 +1,3946 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    PUNTO
+    TEXTO
+
+Grammar
+
+Rule 0     S' -> PROGRAMA
+Rule 1     empty -> <empty>
+Rule 2     C -> MENOR
+Rule 3     C -> MAYOR
+Rule 4     C -> MENOR_IGUAL
+Rule 5     C -> MAYOR_IGUAL
+Rule 6     C -> IGUAL
+Rule 7     C -> DIFERENTE
+Rule 8     E -> E2
+Rule 9     E -> E2 C E2
+Rule 10    E2 -> E3
+Rule 11    E2 -> E2 OR E3
+Rule 12    E2 -> E2 MAS E3
+Rule 13    E2 -> E2 MENOS E3
+Rule 14    E3 -> E4
+Rule 15    E3 -> E3 AND E4
+Rule 16    E3 -> E3 POR E4
+Rule 17    E3 -> E3 ENTRE E4
+Rule 18    E3 -> E3 MODULO E4
+Rule 19    E4 -> T
+Rule 20    E4 -> NOT T
+Rule 21    T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+Rule 22    T -> FUNCTION
+Rule 23    T -> ID_COMPLETO
+Rule 24    T -> VALOR_INT
+Rule 25    T -> VALOR_FLOAT
+Rule 26    ID_COMPLETO -> ID RANGOS
+Rule 27    RANGOS -> empty
+Rule 28    RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS
+Rule 29    V -> TIPO DOS_PUNTOS A PUNTO_COMA
+Rule 30    V -> TIPO DOS_PUNTOS ID_COMPLETO PUNTO_COMA
+Rule 31    TIPO -> INT
+Rule 32    TIPO -> FLOAT
+Rule 33    V_M -> empty
+Rule 34    V_M -> V V_M
+Rule 35    A -> ID_COMPLETO ASIGNACION VALOR_INT
+Rule 36    A -> ID_COMPLETO ASIGNACION VALOR_FLOAT
+Rule 37    A -> ID_COMPLETO ASIGNACION E
+Rule 38    A -> ID_COMPLETO ASIGNACION ID_COMPLETO
+Rule 39    A -> ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+Rule 40    A -> ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+Rule 41    EST -> empty
+Rule 42    EST -> LOOP_ END LOOP PUNTO_COMA EST
+Rule 43    EST -> IF_ END IF PUNTO_COMA EST
+Rule 44    EST -> A PUNTO_COMA EST
+Rule 45    EST -> PROCEDURE PUNTO_COMA EST
+Rule 46    EST -> FUNCTION PUNTO_COMA EST
+Rule 47    EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+Rule 48    EST -> INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+Rule 49    EST -> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+Rule 50    LOOP_ -> DO_WHILE
+Rule 51    LOOP_ -> WHILE_
+Rule 52    LOOP_ -> FOR_
+Rule 53    DO_WHILE -> DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+Rule 54    WHILE_ -> WHILE E DOS_PUNTOS EST
+Rule 55    FOR_ -> FOR EST E EST DOS_PUNTOS EST
+Rule 56    IF_ -> IF E DOS_PUNTOS EST ELSIF_
+Rule 57    ELSIF_ -> END IF PUNTO_COMA
+Rule 58    ELSIF_ -> ELSE DOS_PUNTOS EST END IF PUNTO_COMA
+Rule 59    ELSIF_ -> ELSIF DOS_PUNTOS E EST ELSIF_
+Rule 60    P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+Rule 61    P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+Rule 62    F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA
+Rule 63    MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+Rule 64    MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+Rule 65    PROGRAMA -> MP PROGRAMA_H
+Rule 66    PROGRAMA_H -> empty
+Rule 67    PROGRAMA_H -> P PROGRAMA_H
+Rule 68    PROGRAMA_H -> F PROGRAMA_H
+
+Terminals, with rules where they appear
+
+AND                  : 15
+ASIGNACION           : 35 36 37 38 39 40
+BEGIN                : 60 61 62 63 64
+COMILLAS             : 47 47
+CORCHETE_DERECHO     : 28
+CORCHETE_IZQUIERDO   : 28
+DIFERENTE            : 7
+DO                   : 53
+DOS_PUNTOS           : 29 30 53 54 55 56 58 59 60 61 62 63 64
+ELSE                 : 58
+ELSIF                : 59
+END                  : 42 43 57 58 60 61 62 63 64
+ENTRE                : 17
+FLOAT                : 32
+FOR                  : 55
+FUNCTION             : 22 46 62
+ID                   : 26 39 49 60 61 62 62
+IF                   : 43 56 57 58
+IGUAL                : 6
+INPUT                : 40 48
+INT                  : 31
+LOOP                 : 42
+MAIN                 : 63 64
+MAS                  : 12
+MAYOR                : 3
+MAYOR_IGUAL          : 5
+MENOR                : 2
+MENOR_IGUAL          : 4
+MENOS                : 13
+MODULO               : 18
+NOT                  : 20
+OR                   : 11
+PARENTESIS_DERECHO   : 21 39 40 47 48 49 60 61 62 63 64
+PARENTESIS_IZQUIERDO : 21 39 40 47 48 49 60 61 62 63 64
+POR                  : 16
+PRINT                : 47
+PROCEDURE            : 45 60 60 61 61 63 63 64 64
+PUNTO                : 
+PUNTO_COMA           : 29 30 42 43 44 45 46 47 48 49 53 57 58 60 60 61 61 61 62 62 62 63 63 64 64 64
+RETURN               : 61 62 64
+TEXTO                : 
+VALOR_FLOAT          : 25 36
+VALOR_INT            : 24 28 35
+WHILE                : 53 54
+error                : 
+
+Nonterminals, with rules where they appear
+
+A                    : 29 44
+C                    : 9
+DO_WHILE             : 50
+E                    : 21 37 53 54 55 56 59
+E2                   : 8 9 9 11 12 13
+E3                   : 10 11 12 13 15 16 17 18
+E4                   : 14 15 16 17 18
+ELSIF_               : 56 59
+EST                  : 42 43 44 45 46 47 48 49 53 54 55 55 55 56 58 59 60 61 62 63 64
+F                    : 68
+FOR_                 : 52
+ID_COMPLETO          : 23 30 35 36 37 38 38 39 40
+IF_                  : 43
+LOOP_                : 42
+MP                   : 65
+P                    : 67
+PROGRAMA             : 0
+PROGRAMA_H           : 65 67 68
+RANGOS               : 26 28
+T                    : 19 20
+TIPO                 : 29 30 62
+V                    : 34
+V_M                  : 34 60 61 62 63 64
+WHILE_               : 51
+empty                : 27 33 41 66
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . PROGRAMA
+    (65) PROGRAMA -> . MP PROGRAMA_H
+    (63) MP -> . PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (64) MP -> . PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    PROCEDURE       shift and go to state 3
+
+    PROGRAMA                       shift and go to state 1
+    MP                             shift and go to state 2
+
+state 1
+
+    (0) S' -> PROGRAMA .
+
+
+
+state 2
+
+    (65) PROGRAMA -> MP . PROGRAMA_H
+    (66) PROGRAMA_H -> . empty
+    (67) PROGRAMA_H -> . P PROGRAMA_H
+    (68) PROGRAMA_H -> . F PROGRAMA_H
+    (1) empty -> .
+    (60) P -> . PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (61) P -> . PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+    (62) F -> . TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA
+    (31) TIPO -> . INT
+    (32) TIPO -> . FLOAT
+
+    $end            reduce using rule 1 (empty -> .)
+    PROCEDURE       shift and go to state 8
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+
+    PROGRAMA_H                     shift and go to state 4
+    empty                          shift and go to state 5
+    P                              shift and go to state 6
+    F                              shift and go to state 7
+    TIPO                           shift and go to state 9
+
+state 3
+
+    (63) MP -> PROCEDURE . MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (64) MP -> PROCEDURE . MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    MAIN            shift and go to state 12
+
+
+state 4
+
+    (65) PROGRAMA -> MP PROGRAMA_H .
+
+    $end            reduce using rule 65 (PROGRAMA -> MP PROGRAMA_H .)
+
+
+state 5
+
+    (66) PROGRAMA_H -> empty .
+
+    $end            reduce using rule 66 (PROGRAMA_H -> empty .)
+
+
+state 6
+
+    (67) PROGRAMA_H -> P . PROGRAMA_H
+    (66) PROGRAMA_H -> . empty
+    (67) PROGRAMA_H -> . P PROGRAMA_H
+    (68) PROGRAMA_H -> . F PROGRAMA_H
+    (1) empty -> .
+    (60) P -> . PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (61) P -> . PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+    (62) F -> . TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA
+    (31) TIPO -> . INT
+    (32) TIPO -> . FLOAT
+
+    $end            reduce using rule 1 (empty -> .)
+    PROCEDURE       shift and go to state 8
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+
+    P                              shift and go to state 6
+    PROGRAMA_H                     shift and go to state 13
+    empty                          shift and go to state 5
+    F                              shift and go to state 7
+    TIPO                           shift and go to state 9
+
+state 7
+
+    (68) PROGRAMA_H -> F . PROGRAMA_H
+    (66) PROGRAMA_H -> . empty
+    (67) PROGRAMA_H -> . P PROGRAMA_H
+    (68) PROGRAMA_H -> . F PROGRAMA_H
+    (1) empty -> .
+    (60) P -> . PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (61) P -> . PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+    (62) F -> . TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA
+    (31) TIPO -> . INT
+    (32) TIPO -> . FLOAT
+
+    $end            reduce using rule 1 (empty -> .)
+    PROCEDURE       shift and go to state 8
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+
+    F                              shift and go to state 7
+    PROGRAMA_H                     shift and go to state 14
+    empty                          shift and go to state 5
+    P                              shift and go to state 6
+    TIPO                           shift and go to state 9
+
+state 8
+
+    (60) P -> PROCEDURE . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (61) P -> PROCEDURE . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    ID              shift and go to state 15
+
+
+state 9
+
+    (62) F -> TIPO . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA
+
+    ID              shift and go to state 16
+
+
+state 10
+
+    (31) TIPO -> INT .
+
+    ID              reduce using rule 31 (TIPO -> INT .)
+    DOS_PUNTOS      reduce using rule 31 (TIPO -> INT .)
+
+
+state 11
+
+    (32) TIPO -> FLOAT .
+
+    ID              reduce using rule 32 (TIPO -> FLOAT .)
+    DOS_PUNTOS      reduce using rule 32 (TIPO -> FLOAT .)
+
+
+state 12
+
+    (63) MP -> PROCEDURE MAIN . PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (64) MP -> PROCEDURE MAIN . PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    PARENTESIS_IZQUIERDO shift and go to state 17
+
+
+state 13
+
+    (67) PROGRAMA_H -> P PROGRAMA_H .
+
+    $end            reduce using rule 67 (PROGRAMA_H -> P PROGRAMA_H .)
+
+
+state 14
+
+    (68) PROGRAMA_H -> F PROGRAMA_H .
+
+    $end            reduce using rule 68 (PROGRAMA_H -> F PROGRAMA_H .)
+
+
+state 15
+
+    (60) P -> PROCEDURE ID . PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (61) P -> PROCEDURE ID . PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    PARENTESIS_IZQUIERDO shift and go to state 18
+
+
+state 16
+
+    (62) F -> TIPO ID . PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA
+
+    PARENTESIS_IZQUIERDO shift and go to state 19
+
+
+state 17
+
+    (63) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO . PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (64) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO . PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    PARENTESIS_DERECHO shift and go to state 20
+
+
+state 18
+
+    (60) P -> PROCEDURE ID PARENTESIS_IZQUIERDO . PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (61) P -> PROCEDURE ID PARENTESIS_IZQUIERDO . PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    PARENTESIS_DERECHO shift and go to state 21
+
+
+state 19
+
+    (62) F -> TIPO ID PARENTESIS_IZQUIERDO . PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA
+
+    PARENTESIS_DERECHO shift and go to state 22
+
+
+state 20
+
+    (63) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO . DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (64) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO . DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    DOS_PUNTOS      shift and go to state 23
+
+
+state 21
+
+    (60) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO . DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (61) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO . DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    DOS_PUNTOS      shift and go to state 24
+
+
+state 22
+
+    (62) F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO . DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA
+
+    DOS_PUNTOS      shift and go to state 25
+
+
+state 23
+
+    (63) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS . V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (64) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS . V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+    (33) V_M -> . empty
+    (34) V_M -> . V V_M
+    (1) empty -> .
+    (29) V -> . TIPO DOS_PUNTOS A PUNTO_COMA
+    (30) V -> . TIPO DOS_PUNTOS ID_COMPLETO PUNTO_COMA
+    (31) TIPO -> . INT
+    (32) TIPO -> . FLOAT
+
+    BEGIN           reduce using rule 1 (empty -> .)
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+
+    V_M                            shift and go to state 26
+    empty                          shift and go to state 27
+    V                              shift and go to state 28
+    TIPO                           shift and go to state 29
+
+state 24
+
+    (60) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS . V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (61) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS . V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+    (33) V_M -> . empty
+    (34) V_M -> . V V_M
+    (1) empty -> .
+    (29) V -> . TIPO DOS_PUNTOS A PUNTO_COMA
+    (30) V -> . TIPO DOS_PUNTOS ID_COMPLETO PUNTO_COMA
+    (31) TIPO -> . INT
+    (32) TIPO -> . FLOAT
+
+    BEGIN           reduce using rule 1 (empty -> .)
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+
+    V_M                            shift and go to state 30
+    empty                          shift and go to state 27
+    V                              shift and go to state 28
+    TIPO                           shift and go to state 29
+
+state 25
+
+    (62) F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS . V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA
+    (33) V_M -> . empty
+    (34) V_M -> . V V_M
+    (1) empty -> .
+    (29) V -> . TIPO DOS_PUNTOS A PUNTO_COMA
+    (30) V -> . TIPO DOS_PUNTOS ID_COMPLETO PUNTO_COMA
+    (31) TIPO -> . INT
+    (32) TIPO -> . FLOAT
+
+    BEGIN           reduce using rule 1 (empty -> .)
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+
+    TIPO                           shift and go to state 29
+    V_M                            shift and go to state 31
+    empty                          shift and go to state 27
+    V                              shift and go to state 28
+
+state 26
+
+    (63) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M . BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (64) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M . BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    BEGIN           shift and go to state 32
+
+
+state 27
+
+    (33) V_M -> empty .
+
+    BEGIN           reduce using rule 33 (V_M -> empty .)
+
+
+state 28
+
+    (34) V_M -> V . V_M
+    (33) V_M -> . empty
+    (34) V_M -> . V V_M
+    (1) empty -> .
+    (29) V -> . TIPO DOS_PUNTOS A PUNTO_COMA
+    (30) V -> . TIPO DOS_PUNTOS ID_COMPLETO PUNTO_COMA
+    (31) TIPO -> . INT
+    (32) TIPO -> . FLOAT
+
+    BEGIN           reduce using rule 1 (empty -> .)
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+
+    V                              shift and go to state 28
+    V_M                            shift and go to state 33
+    empty                          shift and go to state 27
+    TIPO                           shift and go to state 29
+
+state 29
+
+    (29) V -> TIPO . DOS_PUNTOS A PUNTO_COMA
+    (30) V -> TIPO . DOS_PUNTOS ID_COMPLETO PUNTO_COMA
+
+    DOS_PUNTOS      shift and go to state 34
+
+
+state 30
+
+    (60) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M . BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (61) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M . BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    BEGIN           shift and go to state 35
+
+
+state 31
+
+    (62) F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M . BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA
+
+    BEGIN           shift and go to state 36
+
+
+state 32
+
+    (63) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN . PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (64) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN . PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 37
+
+
+state 33
+
+    (34) V_M -> V V_M .
+
+    BEGIN           reduce using rule 34 (V_M -> V V_M .)
+
+
+state 34
+
+    (29) V -> TIPO DOS_PUNTOS . A PUNTO_COMA
+    (30) V -> TIPO DOS_PUNTOS . ID_COMPLETO PUNTO_COMA
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    ID              shift and go to state 40
+
+    A                              shift and go to state 38
+    ID_COMPLETO                    shift and go to state 39
+
+state 35
+
+    (60) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN . PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+    (61) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN . PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 41
+
+
+state 36
+
+    (62) F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN . PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 42
+
+
+state 37
+
+    (63) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA . EST END PROCEDURE PUNTO_COMA
+    (64) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA . EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    END             reduce using rule 1 (empty -> .)
+    RETURN          reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+    EST                            shift and go to state 44
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 38
+
+    (29) V -> TIPO DOS_PUNTOS A . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 61
+
+
+state 39
+
+    (30) V -> TIPO DOS_PUNTOS ID_COMPLETO . PUNTO_COMA
+    (35) A -> ID_COMPLETO . ASIGNACION VALOR_INT
+    (36) A -> ID_COMPLETO . ASIGNACION VALOR_FLOAT
+    (37) A -> ID_COMPLETO . ASIGNACION E
+    (38) A -> ID_COMPLETO . ASIGNACION ID_COMPLETO
+    (39) A -> ID_COMPLETO . ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> ID_COMPLETO . ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+
+    PUNTO_COMA      shift and go to state 62
+    ASIGNACION      shift and go to state 63
+
+
+state 40
+
+    (26) ID_COMPLETO -> ID . RANGOS
+    (27) RANGOS -> . empty
+    (28) RANGOS -> . CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS
+    (1) empty -> .
+
+    CORCHETE_IZQUIERDO shift and go to state 66
+    PUNTO_COMA      reduce using rule 1 (empty -> .)
+    ASIGNACION      reduce using rule 1 (empty -> .)
+    AND             reduce using rule 1 (empty -> .)
+    POR             reduce using rule 1 (empty -> .)
+    ENTRE           reduce using rule 1 (empty -> .)
+    MODULO          reduce using rule 1 (empty -> .)
+    OR              reduce using rule 1 (empty -> .)
+    MAS             reduce using rule 1 (empty -> .)
+    MENOS           reduce using rule 1 (empty -> .)
+    MENOR           reduce using rule 1 (empty -> .)
+    MAYOR           reduce using rule 1 (empty -> .)
+    MENOR_IGUAL     reduce using rule 1 (empty -> .)
+    MAYOR_IGUAL     reduce using rule 1 (empty -> .)
+    IGUAL           reduce using rule 1 (empty -> .)
+    DIFERENTE       reduce using rule 1 (empty -> .)
+    DOS_PUNTOS      reduce using rule 1 (empty -> .)
+    PARENTESIS_DERECHO reduce using rule 1 (empty -> .)
+    PROCEDURE       reduce using rule 1 (empty -> .)
+    FUNCTION        reduce using rule 1 (empty -> .)
+    PRINT           reduce using rule 1 (empty -> .)
+    INPUT           reduce using rule 1 (empty -> .)
+    ID              reduce using rule 1 (empty -> .)
+    IF              reduce using rule 1 (empty -> .)
+    DO              reduce using rule 1 (empty -> .)
+    WHILE           reduce using rule 1 (empty -> .)
+    FOR             reduce using rule 1 (empty -> .)
+    END             reduce using rule 1 (empty -> .)
+    ELSE            reduce using rule 1 (empty -> .)
+    ELSIF           reduce using rule 1 (empty -> .)
+
+    RANGOS                         shift and go to state 64
+    empty                          shift and go to state 65
+
+state 41
+
+    (60) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA . EST END PROCEDURE PUNTO_COMA
+    (61) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA . EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    END             reduce using rule 1 (empty -> .)
+    RETURN          reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+    EST                            shift and go to state 67
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 42
+
+    (62) F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA . EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    RETURN          reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+    EST                            shift and go to state 68
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 43
+
+    (45) EST -> PROCEDURE . PUNTO_COMA EST
+
+    PUNTO_COMA      shift and go to state 69
+
+
+state 44
+
+    (63) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST . END PROCEDURE PUNTO_COMA
+    (64) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST . RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    END             shift and go to state 70
+    RETURN          shift and go to state 71
+
+
+state 45
+
+    (41) EST -> empty .
+
+    END             reduce using rule 41 (EST -> empty .)
+    RETURN          reduce using rule 41 (EST -> empty .)
+    NOT             reduce using rule 41 (EST -> empty .)
+    PARENTESIS_IZQUIERDO reduce using rule 41 (EST -> empty .)
+    FUNCTION        reduce using rule 41 (EST -> empty .)
+    VALOR_INT       reduce using rule 41 (EST -> empty .)
+    VALOR_FLOAT     reduce using rule 41 (EST -> empty .)
+    ID              reduce using rule 41 (EST -> empty .)
+    WHILE           reduce using rule 41 (EST -> empty .)
+    ELSE            reduce using rule 41 (EST -> empty .)
+    ELSIF           reduce using rule 41 (EST -> empty .)
+    DOS_PUNTOS      reduce using rule 41 (EST -> empty .)
+
+
+state 46
+
+    (42) EST -> LOOP_ . END LOOP PUNTO_COMA EST
+
+    END             shift and go to state 72
+
+
+state 47
+
+    (43) EST -> IF_ . END IF PUNTO_COMA EST
+
+    END             shift and go to state 73
+
+
+state 48
+
+    (56) IF_ -> IF . E DOS_PUNTOS EST ELSIF_
+    (8) E -> . E2
+    (9) E -> . E2 C E2
+    (10) E2 -> . E3
+    (11) E2 -> . E2 OR E3
+    (12) E2 -> . E2 MAS E3
+    (13) E2 -> . E2 MENOS E3
+    (14) E3 -> . E4
+    (15) E3 -> . E3 AND E4
+    (16) E3 -> . E3 POR E4
+    (17) E3 -> . E3 ENTRE E4
+    (18) E3 -> . E3 MODULO E4
+    (19) E4 -> . T
+    (20) E4 -> . NOT T
+    (21) T -> . PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+    (22) T -> . FUNCTION
+    (23) T -> . ID_COMPLETO
+    (24) T -> . VALOR_INT
+    (25) T -> . VALOR_FLOAT
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    NOT             shift and go to state 79
+    PARENTESIS_IZQUIERDO shift and go to state 80
+    FUNCTION        shift and go to state 81
+    VALOR_INT       shift and go to state 83
+    VALOR_FLOAT     shift and go to state 84
+    ID              shift and go to state 40
+
+    E                              shift and go to state 74
+    E2                             shift and go to state 75
+    E3                             shift and go to state 76
+    E4                             shift and go to state 77
+    T                              shift and go to state 78
+    ID_COMPLETO                    shift and go to state 82
+
+state 49
+
+    (44) EST -> A . PUNTO_COMA EST
+
+    PUNTO_COMA      shift and go to state 85
+
+
+state 50
+
+    (46) EST -> FUNCTION . PUNTO_COMA EST
+
+    PUNTO_COMA      shift and go to state 86
+
+
+state 51
+
+    (47) EST -> PRINT . PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+
+    PARENTESIS_IZQUIERDO shift and go to state 87
+
+
+state 52
+
+    (48) EST -> INPUT . PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+
+    PARENTESIS_IZQUIERDO shift and go to state 88
+
+
+state 53
+
+    (49) EST -> ID . PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (26) ID_COMPLETO -> ID . RANGOS
+    (27) RANGOS -> . empty
+    (28) RANGOS -> . CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS
+    (1) empty -> .
+
+    PARENTESIS_IZQUIERDO shift and go to state 89
+    CORCHETE_IZQUIERDO shift and go to state 66
+    ASIGNACION      reduce using rule 1 (empty -> .)
+
+    RANGOS                         shift and go to state 64
+    empty                          shift and go to state 65
+
+state 54
+
+    (50) LOOP_ -> DO_WHILE .
+
+    END             reduce using rule 50 (LOOP_ -> DO_WHILE .)
+
+
+state 55
+
+    (51) LOOP_ -> WHILE_ .
+
+    END             reduce using rule 51 (LOOP_ -> WHILE_ .)
+
+
+state 56
+
+    (52) LOOP_ -> FOR_ .
+
+    END             reduce using rule 52 (LOOP_ -> FOR_ .)
+
+
+state 57
+
+    (35) A -> ID_COMPLETO . ASIGNACION VALOR_INT
+    (36) A -> ID_COMPLETO . ASIGNACION VALOR_FLOAT
+    (37) A -> ID_COMPLETO . ASIGNACION E
+    (38) A -> ID_COMPLETO . ASIGNACION ID_COMPLETO
+    (39) A -> ID_COMPLETO . ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> ID_COMPLETO . ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+
+    ASIGNACION      shift and go to state 63
+
+
+state 58
+
+    (53) DO_WHILE -> DO . DOS_PUNTOS EST WHILE E PUNTO_COMA
+
+    DOS_PUNTOS      shift and go to state 90
+
+
+state 59
+
+    (54) WHILE_ -> WHILE . E DOS_PUNTOS EST
+    (8) E -> . E2
+    (9) E -> . E2 C E2
+    (10) E2 -> . E3
+    (11) E2 -> . E2 OR E3
+    (12) E2 -> . E2 MAS E3
+    (13) E2 -> . E2 MENOS E3
+    (14) E3 -> . E4
+    (15) E3 -> . E3 AND E4
+    (16) E3 -> . E3 POR E4
+    (17) E3 -> . E3 ENTRE E4
+    (18) E3 -> . E3 MODULO E4
+    (19) E4 -> . T
+    (20) E4 -> . NOT T
+    (21) T -> . PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+    (22) T -> . FUNCTION
+    (23) T -> . ID_COMPLETO
+    (24) T -> . VALOR_INT
+    (25) T -> . VALOR_FLOAT
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    NOT             shift and go to state 79
+    PARENTESIS_IZQUIERDO shift and go to state 80
+    FUNCTION        shift and go to state 81
+    VALOR_INT       shift and go to state 83
+    VALOR_FLOAT     shift and go to state 84
+    ID              shift and go to state 40
+
+    E                              shift and go to state 91
+    E2                             shift and go to state 75
+    E3                             shift and go to state 76
+    E4                             shift and go to state 77
+    T                              shift and go to state 78
+    ID_COMPLETO                    shift and go to state 82
+
+state 60
+
+    (55) FOR_ -> FOR . EST E EST DOS_PUNTOS EST
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    NOT             reduce using rule 1 (empty -> .)
+    PARENTESIS_IZQUIERDO reduce using rule 1 (empty -> .)
+    VALOR_INT       reduce using rule 1 (empty -> .)
+    VALOR_FLOAT     reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+  ! FUNCTION        [ reduce using rule 1 (empty -> .) ]
+  ! ID              [ reduce using rule 1 (empty -> .) ]
+
+    EST                            shift and go to state 92
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 61
+
+    (29) V -> TIPO DOS_PUNTOS A PUNTO_COMA .
+
+    INT             reduce using rule 29 (V -> TIPO DOS_PUNTOS A PUNTO_COMA .)
+    FLOAT           reduce using rule 29 (V -> TIPO DOS_PUNTOS A PUNTO_COMA .)
+    BEGIN           reduce using rule 29 (V -> TIPO DOS_PUNTOS A PUNTO_COMA .)
+
+
+state 62
+
+    (30) V -> TIPO DOS_PUNTOS ID_COMPLETO PUNTO_COMA .
+
+    INT             reduce using rule 30 (V -> TIPO DOS_PUNTOS ID_COMPLETO PUNTO_COMA .)
+    FLOAT           reduce using rule 30 (V -> TIPO DOS_PUNTOS ID_COMPLETO PUNTO_COMA .)
+    BEGIN           reduce using rule 30 (V -> TIPO DOS_PUNTOS ID_COMPLETO PUNTO_COMA .)
+
+
+state 63
+
+    (35) A -> ID_COMPLETO ASIGNACION . VALOR_INT
+    (36) A -> ID_COMPLETO ASIGNACION . VALOR_FLOAT
+    (37) A -> ID_COMPLETO ASIGNACION . E
+    (38) A -> ID_COMPLETO ASIGNACION . ID_COMPLETO
+    (39) A -> ID_COMPLETO ASIGNACION . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> ID_COMPLETO ASIGNACION . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (8) E -> . E2
+    (9) E -> . E2 C E2
+    (26) ID_COMPLETO -> . ID RANGOS
+    (10) E2 -> . E3
+    (11) E2 -> . E2 OR E3
+    (12) E2 -> . E2 MAS E3
+    (13) E2 -> . E2 MENOS E3
+    (14) E3 -> . E4
+    (15) E3 -> . E3 AND E4
+    (16) E3 -> . E3 POR E4
+    (17) E3 -> . E3 ENTRE E4
+    (18) E3 -> . E3 MODULO E4
+    (19) E4 -> . T
+    (20) E4 -> . NOT T
+    (21) T -> . PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+    (22) T -> . FUNCTION
+    (23) T -> . ID_COMPLETO
+    (24) T -> . VALOR_INT
+    (25) T -> . VALOR_FLOAT
+
+    VALOR_INT       shift and go to state 94
+    VALOR_FLOAT     shift and go to state 95
+    ID              shift and go to state 97
+    INPUT           shift and go to state 98
+    NOT             shift and go to state 79
+    PARENTESIS_IZQUIERDO shift and go to state 80
+    FUNCTION        shift and go to state 81
+
+    ID_COMPLETO                    shift and go to state 93
+    E                              shift and go to state 96
+    E2                             shift and go to state 75
+    E3                             shift and go to state 76
+    E4                             shift and go to state 77
+    T                              shift and go to state 78
+
+state 64
+
+    (26) ID_COMPLETO -> ID RANGOS .
+
+    PUNTO_COMA      reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    ASIGNACION      reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    AND             reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    POR             reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    ENTRE           reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    MODULO          reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    OR              reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    MAS             reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    MENOS           reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    MENOR           reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    MAYOR           reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    MENOR_IGUAL     reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    MAYOR_IGUAL     reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    IGUAL           reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    DIFERENTE       reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    DOS_PUNTOS      reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    PARENTESIS_DERECHO reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    PROCEDURE       reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    FUNCTION        reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    PRINT           reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    INPUT           reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    ID              reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    IF              reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    DO              reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    WHILE           reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    FOR             reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    END             reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    ELSE            reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+    ELSIF           reduce using rule 26 (ID_COMPLETO -> ID RANGOS .)
+
+
+state 65
+
+    (27) RANGOS -> empty .
+
+    PUNTO_COMA      reduce using rule 27 (RANGOS -> empty .)
+    ASIGNACION      reduce using rule 27 (RANGOS -> empty .)
+    AND             reduce using rule 27 (RANGOS -> empty .)
+    POR             reduce using rule 27 (RANGOS -> empty .)
+    ENTRE           reduce using rule 27 (RANGOS -> empty .)
+    MODULO          reduce using rule 27 (RANGOS -> empty .)
+    OR              reduce using rule 27 (RANGOS -> empty .)
+    MAS             reduce using rule 27 (RANGOS -> empty .)
+    MENOS           reduce using rule 27 (RANGOS -> empty .)
+    MENOR           reduce using rule 27 (RANGOS -> empty .)
+    MAYOR           reduce using rule 27 (RANGOS -> empty .)
+    MENOR_IGUAL     reduce using rule 27 (RANGOS -> empty .)
+    MAYOR_IGUAL     reduce using rule 27 (RANGOS -> empty .)
+    IGUAL           reduce using rule 27 (RANGOS -> empty .)
+    DIFERENTE       reduce using rule 27 (RANGOS -> empty .)
+    DOS_PUNTOS      reduce using rule 27 (RANGOS -> empty .)
+    PARENTESIS_DERECHO reduce using rule 27 (RANGOS -> empty .)
+    PROCEDURE       reduce using rule 27 (RANGOS -> empty .)
+    FUNCTION        reduce using rule 27 (RANGOS -> empty .)
+    PRINT           reduce using rule 27 (RANGOS -> empty .)
+    INPUT           reduce using rule 27 (RANGOS -> empty .)
+    ID              reduce using rule 27 (RANGOS -> empty .)
+    IF              reduce using rule 27 (RANGOS -> empty .)
+    DO              reduce using rule 27 (RANGOS -> empty .)
+    WHILE           reduce using rule 27 (RANGOS -> empty .)
+    FOR             reduce using rule 27 (RANGOS -> empty .)
+    END             reduce using rule 27 (RANGOS -> empty .)
+    ELSE            reduce using rule 27 (RANGOS -> empty .)
+    ELSIF           reduce using rule 27 (RANGOS -> empty .)
+
+
+state 66
+
+    (28) RANGOS -> CORCHETE_IZQUIERDO . VALOR_INT CORCHETE_DERECHO RANGOS
+
+    VALOR_INT       shift and go to state 99
+
+
+state 67
+
+    (60) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST . END PROCEDURE PUNTO_COMA
+    (61) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST . RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    END             shift and go to state 100
+    RETURN          shift and go to state 101
+
+
+state 68
+
+    (62) F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST . RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA
+
+    RETURN          shift and go to state 102
+
+
+state 69
+
+    (45) EST -> PROCEDURE PUNTO_COMA . EST
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    END             reduce using rule 1 (empty -> .)
+    RETURN          reduce using rule 1 (empty -> .)
+    NOT             reduce using rule 1 (empty -> .)
+    PARENTESIS_IZQUIERDO reduce using rule 1 (empty -> .)
+    VALOR_INT       reduce using rule 1 (empty -> .)
+    VALOR_FLOAT     reduce using rule 1 (empty -> .)
+    ELSE            reduce using rule 1 (empty -> .)
+    ELSIF           reduce using rule 1 (empty -> .)
+    DOS_PUNTOS      reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+  ! FUNCTION        [ reduce using rule 1 (empty -> .) ]
+  ! ID              [ reduce using rule 1 (empty -> .) ]
+  ! WHILE           [ reduce using rule 1 (empty -> .) ]
+
+    EST                            shift and go to state 103
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 70
+
+    (63) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END . PROCEDURE PUNTO_COMA
+
+    PROCEDURE       shift and go to state 104
+
+
+state 71
+
+    (64) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN . PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 105
+
+
+state 72
+
+    (42) EST -> LOOP_ END . LOOP PUNTO_COMA EST
+
+    LOOP            shift and go to state 106
+
+
+state 73
+
+    (43) EST -> IF_ END . IF PUNTO_COMA EST
+
+    IF              shift and go to state 107
+
+
+state 74
+
+    (56) IF_ -> IF E . DOS_PUNTOS EST ELSIF_
+
+    DOS_PUNTOS      shift and go to state 108
+
+
+state 75
+
+    (8) E -> E2 .
+    (9) E -> E2 . C E2
+    (11) E2 -> E2 . OR E3
+    (12) E2 -> E2 . MAS E3
+    (13) E2 -> E2 . MENOS E3
+    (2) C -> . MENOR
+    (3) C -> . MAYOR
+    (4) C -> . MENOR_IGUAL
+    (5) C -> . MAYOR_IGUAL
+    (6) C -> . IGUAL
+    (7) C -> . DIFERENTE
+
+    DOS_PUNTOS      reduce using rule 8 (E -> E2 .)
+    PUNTO_COMA      reduce using rule 8 (E -> E2 .)
+    PARENTESIS_DERECHO reduce using rule 8 (E -> E2 .)
+    PROCEDURE       reduce using rule 8 (E -> E2 .)
+    FUNCTION        reduce using rule 8 (E -> E2 .)
+    PRINT           reduce using rule 8 (E -> E2 .)
+    INPUT           reduce using rule 8 (E -> E2 .)
+    ID              reduce using rule 8 (E -> E2 .)
+    IF              reduce using rule 8 (E -> E2 .)
+    DO              reduce using rule 8 (E -> E2 .)
+    WHILE           reduce using rule 8 (E -> E2 .)
+    FOR             reduce using rule 8 (E -> E2 .)
+    END             reduce using rule 8 (E -> E2 .)
+    ELSE            reduce using rule 8 (E -> E2 .)
+    ELSIF           reduce using rule 8 (E -> E2 .)
+    OR              shift and go to state 110
+    MAS             shift and go to state 111
+    MENOS           shift and go to state 112
+    MENOR           shift and go to state 113
+    MAYOR           shift and go to state 114
+    MENOR_IGUAL     shift and go to state 115
+    MAYOR_IGUAL     shift and go to state 116
+    IGUAL           shift and go to state 117
+    DIFERENTE       shift and go to state 118
+
+    C                              shift and go to state 109
+
+state 76
+
+    (10) E2 -> E3 .
+    (15) E3 -> E3 . AND E4
+    (16) E3 -> E3 . POR E4
+    (17) E3 -> E3 . ENTRE E4
+    (18) E3 -> E3 . MODULO E4
+
+    OR              reduce using rule 10 (E2 -> E3 .)
+    MAS             reduce using rule 10 (E2 -> E3 .)
+    MENOS           reduce using rule 10 (E2 -> E3 .)
+    MENOR           reduce using rule 10 (E2 -> E3 .)
+    MAYOR           reduce using rule 10 (E2 -> E3 .)
+    MENOR_IGUAL     reduce using rule 10 (E2 -> E3 .)
+    MAYOR_IGUAL     reduce using rule 10 (E2 -> E3 .)
+    IGUAL           reduce using rule 10 (E2 -> E3 .)
+    DIFERENTE       reduce using rule 10 (E2 -> E3 .)
+    DOS_PUNTOS      reduce using rule 10 (E2 -> E3 .)
+    PUNTO_COMA      reduce using rule 10 (E2 -> E3 .)
+    PARENTESIS_DERECHO reduce using rule 10 (E2 -> E3 .)
+    PROCEDURE       reduce using rule 10 (E2 -> E3 .)
+    FUNCTION        reduce using rule 10 (E2 -> E3 .)
+    PRINT           reduce using rule 10 (E2 -> E3 .)
+    INPUT           reduce using rule 10 (E2 -> E3 .)
+    ID              reduce using rule 10 (E2 -> E3 .)
+    IF              reduce using rule 10 (E2 -> E3 .)
+    DO              reduce using rule 10 (E2 -> E3 .)
+    WHILE           reduce using rule 10 (E2 -> E3 .)
+    FOR             reduce using rule 10 (E2 -> E3 .)
+    END             reduce using rule 10 (E2 -> E3 .)
+    ELSE            reduce using rule 10 (E2 -> E3 .)
+    ELSIF           reduce using rule 10 (E2 -> E3 .)
+    AND             shift and go to state 119
+    POR             shift and go to state 120
+    ENTRE           shift and go to state 121
+    MODULO          shift and go to state 122
+
+
+state 77
+
+    (14) E3 -> E4 .
+
+    AND             reduce using rule 14 (E3 -> E4 .)
+    POR             reduce using rule 14 (E3 -> E4 .)
+    ENTRE           reduce using rule 14 (E3 -> E4 .)
+    MODULO          reduce using rule 14 (E3 -> E4 .)
+    OR              reduce using rule 14 (E3 -> E4 .)
+    MAS             reduce using rule 14 (E3 -> E4 .)
+    MENOS           reduce using rule 14 (E3 -> E4 .)
+    MENOR           reduce using rule 14 (E3 -> E4 .)
+    MAYOR           reduce using rule 14 (E3 -> E4 .)
+    MENOR_IGUAL     reduce using rule 14 (E3 -> E4 .)
+    MAYOR_IGUAL     reduce using rule 14 (E3 -> E4 .)
+    IGUAL           reduce using rule 14 (E3 -> E4 .)
+    DIFERENTE       reduce using rule 14 (E3 -> E4 .)
+    DOS_PUNTOS      reduce using rule 14 (E3 -> E4 .)
+    PUNTO_COMA      reduce using rule 14 (E3 -> E4 .)
+    PARENTESIS_DERECHO reduce using rule 14 (E3 -> E4 .)
+    PROCEDURE       reduce using rule 14 (E3 -> E4 .)
+    FUNCTION        reduce using rule 14 (E3 -> E4 .)
+    PRINT           reduce using rule 14 (E3 -> E4 .)
+    INPUT           reduce using rule 14 (E3 -> E4 .)
+    ID              reduce using rule 14 (E3 -> E4 .)
+    IF              reduce using rule 14 (E3 -> E4 .)
+    DO              reduce using rule 14 (E3 -> E4 .)
+    WHILE           reduce using rule 14 (E3 -> E4 .)
+    FOR             reduce using rule 14 (E3 -> E4 .)
+    END             reduce using rule 14 (E3 -> E4 .)
+    ELSE            reduce using rule 14 (E3 -> E4 .)
+    ELSIF           reduce using rule 14 (E3 -> E4 .)
+
+
+state 78
+
+    (19) E4 -> T .
+
+    AND             reduce using rule 19 (E4 -> T .)
+    POR             reduce using rule 19 (E4 -> T .)
+    ENTRE           reduce using rule 19 (E4 -> T .)
+    MODULO          reduce using rule 19 (E4 -> T .)
+    OR              reduce using rule 19 (E4 -> T .)
+    MAS             reduce using rule 19 (E4 -> T .)
+    MENOS           reduce using rule 19 (E4 -> T .)
+    MENOR           reduce using rule 19 (E4 -> T .)
+    MAYOR           reduce using rule 19 (E4 -> T .)
+    MENOR_IGUAL     reduce using rule 19 (E4 -> T .)
+    MAYOR_IGUAL     reduce using rule 19 (E4 -> T .)
+    IGUAL           reduce using rule 19 (E4 -> T .)
+    DIFERENTE       reduce using rule 19 (E4 -> T .)
+    DOS_PUNTOS      reduce using rule 19 (E4 -> T .)
+    PUNTO_COMA      reduce using rule 19 (E4 -> T .)
+    PARENTESIS_DERECHO reduce using rule 19 (E4 -> T .)
+    PROCEDURE       reduce using rule 19 (E4 -> T .)
+    FUNCTION        reduce using rule 19 (E4 -> T .)
+    PRINT           reduce using rule 19 (E4 -> T .)
+    INPUT           reduce using rule 19 (E4 -> T .)
+    ID              reduce using rule 19 (E4 -> T .)
+    IF              reduce using rule 19 (E4 -> T .)
+    DO              reduce using rule 19 (E4 -> T .)
+    WHILE           reduce using rule 19 (E4 -> T .)
+    FOR             reduce using rule 19 (E4 -> T .)
+    END             reduce using rule 19 (E4 -> T .)
+    ELSE            reduce using rule 19 (E4 -> T .)
+    ELSIF           reduce using rule 19 (E4 -> T .)
+
+
+state 79
+
+    (20) E4 -> NOT . T
+    (21) T -> . PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+    (22) T -> . FUNCTION
+    (23) T -> . ID_COMPLETO
+    (24) T -> . VALOR_INT
+    (25) T -> . VALOR_FLOAT
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    PARENTESIS_IZQUIERDO shift and go to state 80
+    FUNCTION        shift and go to state 81
+    VALOR_INT       shift and go to state 83
+    VALOR_FLOAT     shift and go to state 84
+    ID              shift and go to state 40
+
+    T                              shift and go to state 123
+    ID_COMPLETO                    shift and go to state 82
+
+state 80
+
+    (21) T -> PARENTESIS_IZQUIERDO . E PARENTESIS_DERECHO
+    (8) E -> . E2
+    (9) E -> . E2 C E2
+    (10) E2 -> . E3
+    (11) E2 -> . E2 OR E3
+    (12) E2 -> . E2 MAS E3
+    (13) E2 -> . E2 MENOS E3
+    (14) E3 -> . E4
+    (15) E3 -> . E3 AND E4
+    (16) E3 -> . E3 POR E4
+    (17) E3 -> . E3 ENTRE E4
+    (18) E3 -> . E3 MODULO E4
+    (19) E4 -> . T
+    (20) E4 -> . NOT T
+    (21) T -> . PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+    (22) T -> . FUNCTION
+    (23) T -> . ID_COMPLETO
+    (24) T -> . VALOR_INT
+    (25) T -> . VALOR_FLOAT
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    NOT             shift and go to state 79
+    PARENTESIS_IZQUIERDO shift and go to state 80
+    FUNCTION        shift and go to state 81
+    VALOR_INT       shift and go to state 83
+    VALOR_FLOAT     shift and go to state 84
+    ID              shift and go to state 40
+
+    E                              shift and go to state 124
+    E2                             shift and go to state 75
+    E3                             shift and go to state 76
+    E4                             shift and go to state 77
+    T                              shift and go to state 78
+    ID_COMPLETO                    shift and go to state 82
+
+state 81
+
+    (22) T -> FUNCTION .
+
+    AND             reduce using rule 22 (T -> FUNCTION .)
+    POR             reduce using rule 22 (T -> FUNCTION .)
+    ENTRE           reduce using rule 22 (T -> FUNCTION .)
+    MODULO          reduce using rule 22 (T -> FUNCTION .)
+    OR              reduce using rule 22 (T -> FUNCTION .)
+    MAS             reduce using rule 22 (T -> FUNCTION .)
+    MENOS           reduce using rule 22 (T -> FUNCTION .)
+    MENOR           reduce using rule 22 (T -> FUNCTION .)
+    MAYOR           reduce using rule 22 (T -> FUNCTION .)
+    MENOR_IGUAL     reduce using rule 22 (T -> FUNCTION .)
+    MAYOR_IGUAL     reduce using rule 22 (T -> FUNCTION .)
+    IGUAL           reduce using rule 22 (T -> FUNCTION .)
+    DIFERENTE       reduce using rule 22 (T -> FUNCTION .)
+    DOS_PUNTOS      reduce using rule 22 (T -> FUNCTION .)
+    PUNTO_COMA      reduce using rule 22 (T -> FUNCTION .)
+    PARENTESIS_DERECHO reduce using rule 22 (T -> FUNCTION .)
+    PROCEDURE       reduce using rule 22 (T -> FUNCTION .)
+    FUNCTION        reduce using rule 22 (T -> FUNCTION .)
+    PRINT           reduce using rule 22 (T -> FUNCTION .)
+    INPUT           reduce using rule 22 (T -> FUNCTION .)
+    ID              reduce using rule 22 (T -> FUNCTION .)
+    IF              reduce using rule 22 (T -> FUNCTION .)
+    DO              reduce using rule 22 (T -> FUNCTION .)
+    WHILE           reduce using rule 22 (T -> FUNCTION .)
+    FOR             reduce using rule 22 (T -> FUNCTION .)
+    END             reduce using rule 22 (T -> FUNCTION .)
+    ELSE            reduce using rule 22 (T -> FUNCTION .)
+    ELSIF           reduce using rule 22 (T -> FUNCTION .)
+
+
+state 82
+
+    (23) T -> ID_COMPLETO .
+
+    AND             reduce using rule 23 (T -> ID_COMPLETO .)
+    POR             reduce using rule 23 (T -> ID_COMPLETO .)
+    ENTRE           reduce using rule 23 (T -> ID_COMPLETO .)
+    MODULO          reduce using rule 23 (T -> ID_COMPLETO .)
+    OR              reduce using rule 23 (T -> ID_COMPLETO .)
+    MAS             reduce using rule 23 (T -> ID_COMPLETO .)
+    MENOS           reduce using rule 23 (T -> ID_COMPLETO .)
+    MENOR           reduce using rule 23 (T -> ID_COMPLETO .)
+    MAYOR           reduce using rule 23 (T -> ID_COMPLETO .)
+    MENOR_IGUAL     reduce using rule 23 (T -> ID_COMPLETO .)
+    MAYOR_IGUAL     reduce using rule 23 (T -> ID_COMPLETO .)
+    IGUAL           reduce using rule 23 (T -> ID_COMPLETO .)
+    DIFERENTE       reduce using rule 23 (T -> ID_COMPLETO .)
+    DOS_PUNTOS      reduce using rule 23 (T -> ID_COMPLETO .)
+    PUNTO_COMA      reduce using rule 23 (T -> ID_COMPLETO .)
+    PARENTESIS_DERECHO reduce using rule 23 (T -> ID_COMPLETO .)
+    PROCEDURE       reduce using rule 23 (T -> ID_COMPLETO .)
+    FUNCTION        reduce using rule 23 (T -> ID_COMPLETO .)
+    PRINT           reduce using rule 23 (T -> ID_COMPLETO .)
+    INPUT           reduce using rule 23 (T -> ID_COMPLETO .)
+    ID              reduce using rule 23 (T -> ID_COMPLETO .)
+    IF              reduce using rule 23 (T -> ID_COMPLETO .)
+    DO              reduce using rule 23 (T -> ID_COMPLETO .)
+    WHILE           reduce using rule 23 (T -> ID_COMPLETO .)
+    FOR             reduce using rule 23 (T -> ID_COMPLETO .)
+    END             reduce using rule 23 (T -> ID_COMPLETO .)
+    ELSE            reduce using rule 23 (T -> ID_COMPLETO .)
+    ELSIF           reduce using rule 23 (T -> ID_COMPLETO .)
+
+
+state 83
+
+    (24) T -> VALOR_INT .
+
+    AND             reduce using rule 24 (T -> VALOR_INT .)
+    POR             reduce using rule 24 (T -> VALOR_INT .)
+    ENTRE           reduce using rule 24 (T -> VALOR_INT .)
+    MODULO          reduce using rule 24 (T -> VALOR_INT .)
+    OR              reduce using rule 24 (T -> VALOR_INT .)
+    MAS             reduce using rule 24 (T -> VALOR_INT .)
+    MENOS           reduce using rule 24 (T -> VALOR_INT .)
+    MENOR           reduce using rule 24 (T -> VALOR_INT .)
+    MAYOR           reduce using rule 24 (T -> VALOR_INT .)
+    MENOR_IGUAL     reduce using rule 24 (T -> VALOR_INT .)
+    MAYOR_IGUAL     reduce using rule 24 (T -> VALOR_INT .)
+    IGUAL           reduce using rule 24 (T -> VALOR_INT .)
+    DIFERENTE       reduce using rule 24 (T -> VALOR_INT .)
+    DOS_PUNTOS      reduce using rule 24 (T -> VALOR_INT .)
+    PUNTO_COMA      reduce using rule 24 (T -> VALOR_INT .)
+    PARENTESIS_DERECHO reduce using rule 24 (T -> VALOR_INT .)
+    PROCEDURE       reduce using rule 24 (T -> VALOR_INT .)
+    FUNCTION        reduce using rule 24 (T -> VALOR_INT .)
+    PRINT           reduce using rule 24 (T -> VALOR_INT .)
+    INPUT           reduce using rule 24 (T -> VALOR_INT .)
+    ID              reduce using rule 24 (T -> VALOR_INT .)
+    IF              reduce using rule 24 (T -> VALOR_INT .)
+    DO              reduce using rule 24 (T -> VALOR_INT .)
+    WHILE           reduce using rule 24 (T -> VALOR_INT .)
+    FOR             reduce using rule 24 (T -> VALOR_INT .)
+    END             reduce using rule 24 (T -> VALOR_INT .)
+    ELSE            reduce using rule 24 (T -> VALOR_INT .)
+    ELSIF           reduce using rule 24 (T -> VALOR_INT .)
+
+
+state 84
+
+    (25) T -> VALOR_FLOAT .
+
+    AND             reduce using rule 25 (T -> VALOR_FLOAT .)
+    POR             reduce using rule 25 (T -> VALOR_FLOAT .)
+    ENTRE           reduce using rule 25 (T -> VALOR_FLOAT .)
+    MODULO          reduce using rule 25 (T -> VALOR_FLOAT .)
+    OR              reduce using rule 25 (T -> VALOR_FLOAT .)
+    MAS             reduce using rule 25 (T -> VALOR_FLOAT .)
+    MENOS           reduce using rule 25 (T -> VALOR_FLOAT .)
+    MENOR           reduce using rule 25 (T -> VALOR_FLOAT .)
+    MAYOR           reduce using rule 25 (T -> VALOR_FLOAT .)
+    MENOR_IGUAL     reduce using rule 25 (T -> VALOR_FLOAT .)
+    MAYOR_IGUAL     reduce using rule 25 (T -> VALOR_FLOAT .)
+    IGUAL           reduce using rule 25 (T -> VALOR_FLOAT .)
+    DIFERENTE       reduce using rule 25 (T -> VALOR_FLOAT .)
+    DOS_PUNTOS      reduce using rule 25 (T -> VALOR_FLOAT .)
+    PUNTO_COMA      reduce using rule 25 (T -> VALOR_FLOAT .)
+    PARENTESIS_DERECHO reduce using rule 25 (T -> VALOR_FLOAT .)
+    PROCEDURE       reduce using rule 25 (T -> VALOR_FLOAT .)
+    FUNCTION        reduce using rule 25 (T -> VALOR_FLOAT .)
+    PRINT           reduce using rule 25 (T -> VALOR_FLOAT .)
+    INPUT           reduce using rule 25 (T -> VALOR_FLOAT .)
+    ID              reduce using rule 25 (T -> VALOR_FLOAT .)
+    IF              reduce using rule 25 (T -> VALOR_FLOAT .)
+    DO              reduce using rule 25 (T -> VALOR_FLOAT .)
+    WHILE           reduce using rule 25 (T -> VALOR_FLOAT .)
+    FOR             reduce using rule 25 (T -> VALOR_FLOAT .)
+    END             reduce using rule 25 (T -> VALOR_FLOAT .)
+    ELSE            reduce using rule 25 (T -> VALOR_FLOAT .)
+    ELSIF           reduce using rule 25 (T -> VALOR_FLOAT .)
+
+
+state 85
+
+    (44) EST -> A PUNTO_COMA . EST
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    END             reduce using rule 1 (empty -> .)
+    RETURN          reduce using rule 1 (empty -> .)
+    NOT             reduce using rule 1 (empty -> .)
+    PARENTESIS_IZQUIERDO reduce using rule 1 (empty -> .)
+    VALOR_INT       reduce using rule 1 (empty -> .)
+    VALOR_FLOAT     reduce using rule 1 (empty -> .)
+    ELSE            reduce using rule 1 (empty -> .)
+    ELSIF           reduce using rule 1 (empty -> .)
+    DOS_PUNTOS      reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+  ! FUNCTION        [ reduce using rule 1 (empty -> .) ]
+  ! ID              [ reduce using rule 1 (empty -> .) ]
+  ! WHILE           [ reduce using rule 1 (empty -> .) ]
+
+    A                              shift and go to state 49
+    EST                            shift and go to state 125
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 86
+
+    (46) EST -> FUNCTION PUNTO_COMA . EST
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    END             reduce using rule 1 (empty -> .)
+    RETURN          reduce using rule 1 (empty -> .)
+    NOT             reduce using rule 1 (empty -> .)
+    PARENTESIS_IZQUIERDO reduce using rule 1 (empty -> .)
+    VALOR_INT       reduce using rule 1 (empty -> .)
+    VALOR_FLOAT     reduce using rule 1 (empty -> .)
+    ELSE            reduce using rule 1 (empty -> .)
+    ELSIF           reduce using rule 1 (empty -> .)
+    DOS_PUNTOS      reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+  ! FUNCTION        [ reduce using rule 1 (empty -> .) ]
+  ! ID              [ reduce using rule 1 (empty -> .) ]
+  ! WHILE           [ reduce using rule 1 (empty -> .) ]
+
+    EST                            shift and go to state 126
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 87
+
+    (47) EST -> PRINT PARENTESIS_IZQUIERDO . COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+
+    COMILLAS        shift and go to state 127
+
+
+state 88
+
+    (48) EST -> INPUT PARENTESIS_IZQUIERDO . PARENTESIS_DERECHO PUNTO_COMA EST
+
+    PARENTESIS_DERECHO shift and go to state 128
+
+
+state 89
+
+    (49) EST -> ID PARENTESIS_IZQUIERDO . PARENTESIS_DERECHO PUNTO_COMA EST
+
+    PARENTESIS_DERECHO shift and go to state 129
+
+
+state 90
+
+    (53) DO_WHILE -> DO DOS_PUNTOS . EST WHILE E PUNTO_COMA
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+  ! shift/reduce conflict for WHILE resolved as shift
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+  ! WHILE           [ reduce using rule 1 (empty -> .) ]
+
+    EST                            shift and go to state 130
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 91
+
+    (54) WHILE_ -> WHILE E . DOS_PUNTOS EST
+
+    DOS_PUNTOS      shift and go to state 131
+
+
+state 92
+
+    (55) FOR_ -> FOR EST . E EST DOS_PUNTOS EST
+    (8) E -> . E2
+    (9) E -> . E2 C E2
+    (10) E2 -> . E3
+    (11) E2 -> . E2 OR E3
+    (12) E2 -> . E2 MAS E3
+    (13) E2 -> . E2 MENOS E3
+    (14) E3 -> . E4
+    (15) E3 -> . E3 AND E4
+    (16) E3 -> . E3 POR E4
+    (17) E3 -> . E3 ENTRE E4
+    (18) E3 -> . E3 MODULO E4
+    (19) E4 -> . T
+    (20) E4 -> . NOT T
+    (21) T -> . PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+    (22) T -> . FUNCTION
+    (23) T -> . ID_COMPLETO
+    (24) T -> . VALOR_INT
+    (25) T -> . VALOR_FLOAT
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    NOT             shift and go to state 79
+    PARENTESIS_IZQUIERDO shift and go to state 80
+    FUNCTION        shift and go to state 81
+    VALOR_INT       shift and go to state 83
+    VALOR_FLOAT     shift and go to state 84
+    ID              shift and go to state 40
+
+    E                              shift and go to state 132
+    E2                             shift and go to state 75
+    E3                             shift and go to state 76
+    E4                             shift and go to state 77
+    T                              shift and go to state 78
+    ID_COMPLETO                    shift and go to state 82
+
+state 93
+
+    (38) A -> ID_COMPLETO ASIGNACION ID_COMPLETO .
+    (23) T -> ID_COMPLETO .
+
+  ! reduce/reduce conflict for PUNTO_COMA resolved using rule 23 (T -> ID_COMPLETO .)
+    AND             reduce using rule 23 (T -> ID_COMPLETO .)
+    POR             reduce using rule 23 (T -> ID_COMPLETO .)
+    ENTRE           reduce using rule 23 (T -> ID_COMPLETO .)
+    MODULO          reduce using rule 23 (T -> ID_COMPLETO .)
+    OR              reduce using rule 23 (T -> ID_COMPLETO .)
+    MAS             reduce using rule 23 (T -> ID_COMPLETO .)
+    MENOS           reduce using rule 23 (T -> ID_COMPLETO .)
+    MENOR           reduce using rule 23 (T -> ID_COMPLETO .)
+    MAYOR           reduce using rule 23 (T -> ID_COMPLETO .)
+    MENOR_IGUAL     reduce using rule 23 (T -> ID_COMPLETO .)
+    MAYOR_IGUAL     reduce using rule 23 (T -> ID_COMPLETO .)
+    IGUAL           reduce using rule 23 (T -> ID_COMPLETO .)
+    DIFERENTE       reduce using rule 23 (T -> ID_COMPLETO .)
+    PUNTO_COMA      reduce using rule 23 (T -> ID_COMPLETO .)
+
+  ! PUNTO_COMA      [ reduce using rule 38 (A -> ID_COMPLETO ASIGNACION ID_COMPLETO .) ]
+
+
+state 94
+
+    (35) A -> ID_COMPLETO ASIGNACION VALOR_INT .
+    (24) T -> VALOR_INT .
+
+  ! reduce/reduce conflict for PUNTO_COMA resolved using rule 24 (T -> VALOR_INT .)
+    AND             reduce using rule 24 (T -> VALOR_INT .)
+    POR             reduce using rule 24 (T -> VALOR_INT .)
+    ENTRE           reduce using rule 24 (T -> VALOR_INT .)
+    MODULO          reduce using rule 24 (T -> VALOR_INT .)
+    OR              reduce using rule 24 (T -> VALOR_INT .)
+    MAS             reduce using rule 24 (T -> VALOR_INT .)
+    MENOS           reduce using rule 24 (T -> VALOR_INT .)
+    MENOR           reduce using rule 24 (T -> VALOR_INT .)
+    MAYOR           reduce using rule 24 (T -> VALOR_INT .)
+    MENOR_IGUAL     reduce using rule 24 (T -> VALOR_INT .)
+    MAYOR_IGUAL     reduce using rule 24 (T -> VALOR_INT .)
+    IGUAL           reduce using rule 24 (T -> VALOR_INT .)
+    DIFERENTE       reduce using rule 24 (T -> VALOR_INT .)
+    PUNTO_COMA      reduce using rule 24 (T -> VALOR_INT .)
+
+  ! PUNTO_COMA      [ reduce using rule 35 (A -> ID_COMPLETO ASIGNACION VALOR_INT .) ]
+
+
+state 95
+
+    (36) A -> ID_COMPLETO ASIGNACION VALOR_FLOAT .
+    (25) T -> VALOR_FLOAT .
+
+  ! reduce/reduce conflict for PUNTO_COMA resolved using rule 25 (T -> VALOR_FLOAT .)
+    AND             reduce using rule 25 (T -> VALOR_FLOAT .)
+    POR             reduce using rule 25 (T -> VALOR_FLOAT .)
+    ENTRE           reduce using rule 25 (T -> VALOR_FLOAT .)
+    MODULO          reduce using rule 25 (T -> VALOR_FLOAT .)
+    OR              reduce using rule 25 (T -> VALOR_FLOAT .)
+    MAS             reduce using rule 25 (T -> VALOR_FLOAT .)
+    MENOS           reduce using rule 25 (T -> VALOR_FLOAT .)
+    MENOR           reduce using rule 25 (T -> VALOR_FLOAT .)
+    MAYOR           reduce using rule 25 (T -> VALOR_FLOAT .)
+    MENOR_IGUAL     reduce using rule 25 (T -> VALOR_FLOAT .)
+    MAYOR_IGUAL     reduce using rule 25 (T -> VALOR_FLOAT .)
+    IGUAL           reduce using rule 25 (T -> VALOR_FLOAT .)
+    DIFERENTE       reduce using rule 25 (T -> VALOR_FLOAT .)
+    PUNTO_COMA      reduce using rule 25 (T -> VALOR_FLOAT .)
+
+  ! PUNTO_COMA      [ reduce using rule 36 (A -> ID_COMPLETO ASIGNACION VALOR_FLOAT .) ]
+
+
+state 96
+
+    (37) A -> ID_COMPLETO ASIGNACION E .
+
+    PUNTO_COMA      reduce using rule 37 (A -> ID_COMPLETO ASIGNACION E .)
+
+
+state 97
+
+    (39) A -> ID_COMPLETO ASIGNACION ID . PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (26) ID_COMPLETO -> ID . RANGOS
+    (27) RANGOS -> . empty
+    (28) RANGOS -> . CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS
+    (1) empty -> .
+
+    PARENTESIS_IZQUIERDO shift and go to state 133
+    CORCHETE_IZQUIERDO shift and go to state 66
+    PUNTO_COMA      reduce using rule 1 (empty -> .)
+    AND             reduce using rule 1 (empty -> .)
+    POR             reduce using rule 1 (empty -> .)
+    ENTRE           reduce using rule 1 (empty -> .)
+    MODULO          reduce using rule 1 (empty -> .)
+    OR              reduce using rule 1 (empty -> .)
+    MAS             reduce using rule 1 (empty -> .)
+    MENOS           reduce using rule 1 (empty -> .)
+    MENOR           reduce using rule 1 (empty -> .)
+    MAYOR           reduce using rule 1 (empty -> .)
+    MENOR_IGUAL     reduce using rule 1 (empty -> .)
+    MAYOR_IGUAL     reduce using rule 1 (empty -> .)
+    IGUAL           reduce using rule 1 (empty -> .)
+    DIFERENTE       reduce using rule 1 (empty -> .)
+
+    RANGOS                         shift and go to state 64
+    empty                          shift and go to state 65
+
+state 98
+
+    (40) A -> ID_COMPLETO ASIGNACION INPUT . PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+
+    PARENTESIS_IZQUIERDO shift and go to state 134
+
+
+state 99
+
+    (28) RANGOS -> CORCHETE_IZQUIERDO VALOR_INT . CORCHETE_DERECHO RANGOS
+
+    CORCHETE_DERECHO shift and go to state 135
+
+
+state 100
+
+    (60) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END . PROCEDURE PUNTO_COMA
+
+    PROCEDURE       shift and go to state 136
+
+
+state 101
+
+    (61) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN . PUNTO_COMA END PROCEDURE PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 137
+
+
+state 102
+
+    (62) F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN . ID PUNTO_COMA END FUNCTION PUNTO_COMA
+
+    ID              shift and go to state 138
+
+
+state 103
+
+    (45) EST -> PROCEDURE PUNTO_COMA EST .
+
+    END             reduce using rule 45 (EST -> PROCEDURE PUNTO_COMA EST .)
+    RETURN          reduce using rule 45 (EST -> PROCEDURE PUNTO_COMA EST .)
+    NOT             reduce using rule 45 (EST -> PROCEDURE PUNTO_COMA EST .)
+    PARENTESIS_IZQUIERDO reduce using rule 45 (EST -> PROCEDURE PUNTO_COMA EST .)
+    FUNCTION        reduce using rule 45 (EST -> PROCEDURE PUNTO_COMA EST .)
+    VALOR_INT       reduce using rule 45 (EST -> PROCEDURE PUNTO_COMA EST .)
+    VALOR_FLOAT     reduce using rule 45 (EST -> PROCEDURE PUNTO_COMA EST .)
+    ID              reduce using rule 45 (EST -> PROCEDURE PUNTO_COMA EST .)
+    WHILE           reduce using rule 45 (EST -> PROCEDURE PUNTO_COMA EST .)
+    ELSE            reduce using rule 45 (EST -> PROCEDURE PUNTO_COMA EST .)
+    ELSIF           reduce using rule 45 (EST -> PROCEDURE PUNTO_COMA EST .)
+    DOS_PUNTOS      reduce using rule 45 (EST -> PROCEDURE PUNTO_COMA EST .)
+
+
+state 104
+
+    (63) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 139
+
+
+state 105
+
+    (64) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA . END PROCEDURE PUNTO_COMA
+
+    END             shift and go to state 140
+
+
+state 106
+
+    (42) EST -> LOOP_ END LOOP . PUNTO_COMA EST
+
+    PUNTO_COMA      shift and go to state 141
+
+
+state 107
+
+    (43) EST -> IF_ END IF . PUNTO_COMA EST
+
+    PUNTO_COMA      shift and go to state 142
+
+
+state 108
+
+    (56) IF_ -> IF E DOS_PUNTOS . EST ELSIF_
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    END             reduce using rule 1 (empty -> .)
+    ELSE            reduce using rule 1 (empty -> .)
+    ELSIF           reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+    EST                            shift and go to state 143
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 109
+
+    (9) E -> E2 C . E2
+    (10) E2 -> . E3
+    (11) E2 -> . E2 OR E3
+    (12) E2 -> . E2 MAS E3
+    (13) E2 -> . E2 MENOS E3
+    (14) E3 -> . E4
+    (15) E3 -> . E3 AND E4
+    (16) E3 -> . E3 POR E4
+    (17) E3 -> . E3 ENTRE E4
+    (18) E3 -> . E3 MODULO E4
+    (19) E4 -> . T
+    (20) E4 -> . NOT T
+    (21) T -> . PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+    (22) T -> . FUNCTION
+    (23) T -> . ID_COMPLETO
+    (24) T -> . VALOR_INT
+    (25) T -> . VALOR_FLOAT
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    NOT             shift and go to state 79
+    PARENTESIS_IZQUIERDO shift and go to state 80
+    FUNCTION        shift and go to state 81
+    VALOR_INT       shift and go to state 83
+    VALOR_FLOAT     shift and go to state 84
+    ID              shift and go to state 40
+
+    E2                             shift and go to state 144
+    E3                             shift and go to state 76
+    E4                             shift and go to state 77
+    T                              shift and go to state 78
+    ID_COMPLETO                    shift and go to state 82
+
+state 110
+
+    (11) E2 -> E2 OR . E3
+    (14) E3 -> . E4
+    (15) E3 -> . E3 AND E4
+    (16) E3 -> . E3 POR E4
+    (17) E3 -> . E3 ENTRE E4
+    (18) E3 -> . E3 MODULO E4
+    (19) E4 -> . T
+    (20) E4 -> . NOT T
+    (21) T -> . PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+    (22) T -> . FUNCTION
+    (23) T -> . ID_COMPLETO
+    (24) T -> . VALOR_INT
+    (25) T -> . VALOR_FLOAT
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    NOT             shift and go to state 79
+    PARENTESIS_IZQUIERDO shift and go to state 80
+    FUNCTION        shift and go to state 81
+    VALOR_INT       shift and go to state 83
+    VALOR_FLOAT     shift and go to state 84
+    ID              shift and go to state 40
+
+    E3                             shift and go to state 145
+    E4                             shift and go to state 77
+    T                              shift and go to state 78
+    ID_COMPLETO                    shift and go to state 82
+
+state 111
+
+    (12) E2 -> E2 MAS . E3
+    (14) E3 -> . E4
+    (15) E3 -> . E3 AND E4
+    (16) E3 -> . E3 POR E4
+    (17) E3 -> . E3 ENTRE E4
+    (18) E3 -> . E3 MODULO E4
+    (19) E4 -> . T
+    (20) E4 -> . NOT T
+    (21) T -> . PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+    (22) T -> . FUNCTION
+    (23) T -> . ID_COMPLETO
+    (24) T -> . VALOR_INT
+    (25) T -> . VALOR_FLOAT
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    NOT             shift and go to state 79
+    PARENTESIS_IZQUIERDO shift and go to state 80
+    FUNCTION        shift and go to state 81
+    VALOR_INT       shift and go to state 83
+    VALOR_FLOAT     shift and go to state 84
+    ID              shift and go to state 40
+
+    E3                             shift and go to state 146
+    E4                             shift and go to state 77
+    T                              shift and go to state 78
+    ID_COMPLETO                    shift and go to state 82
+
+state 112
+
+    (13) E2 -> E2 MENOS . E3
+    (14) E3 -> . E4
+    (15) E3 -> . E3 AND E4
+    (16) E3 -> . E3 POR E4
+    (17) E3 -> . E3 ENTRE E4
+    (18) E3 -> . E3 MODULO E4
+    (19) E4 -> . T
+    (20) E4 -> . NOT T
+    (21) T -> . PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+    (22) T -> . FUNCTION
+    (23) T -> . ID_COMPLETO
+    (24) T -> . VALOR_INT
+    (25) T -> . VALOR_FLOAT
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    NOT             shift and go to state 79
+    PARENTESIS_IZQUIERDO shift and go to state 80
+    FUNCTION        shift and go to state 81
+    VALOR_INT       shift and go to state 83
+    VALOR_FLOAT     shift and go to state 84
+    ID              shift and go to state 40
+
+    E3                             shift and go to state 147
+    E4                             shift and go to state 77
+    T                              shift and go to state 78
+    ID_COMPLETO                    shift and go to state 82
+
+state 113
+
+    (2) C -> MENOR .
+
+    NOT             reduce using rule 2 (C -> MENOR .)
+    PARENTESIS_IZQUIERDO reduce using rule 2 (C -> MENOR .)
+    FUNCTION        reduce using rule 2 (C -> MENOR .)
+    VALOR_INT       reduce using rule 2 (C -> MENOR .)
+    VALOR_FLOAT     reduce using rule 2 (C -> MENOR .)
+    ID              reduce using rule 2 (C -> MENOR .)
+
+
+state 114
+
+    (3) C -> MAYOR .
+
+    NOT             reduce using rule 3 (C -> MAYOR .)
+    PARENTESIS_IZQUIERDO reduce using rule 3 (C -> MAYOR .)
+    FUNCTION        reduce using rule 3 (C -> MAYOR .)
+    VALOR_INT       reduce using rule 3 (C -> MAYOR .)
+    VALOR_FLOAT     reduce using rule 3 (C -> MAYOR .)
+    ID              reduce using rule 3 (C -> MAYOR .)
+
+
+state 115
+
+    (4) C -> MENOR_IGUAL .
+
+    NOT             reduce using rule 4 (C -> MENOR_IGUAL .)
+    PARENTESIS_IZQUIERDO reduce using rule 4 (C -> MENOR_IGUAL .)
+    FUNCTION        reduce using rule 4 (C -> MENOR_IGUAL .)
+    VALOR_INT       reduce using rule 4 (C -> MENOR_IGUAL .)
+    VALOR_FLOAT     reduce using rule 4 (C -> MENOR_IGUAL .)
+    ID              reduce using rule 4 (C -> MENOR_IGUAL .)
+
+
+state 116
+
+    (5) C -> MAYOR_IGUAL .
+
+    NOT             reduce using rule 5 (C -> MAYOR_IGUAL .)
+    PARENTESIS_IZQUIERDO reduce using rule 5 (C -> MAYOR_IGUAL .)
+    FUNCTION        reduce using rule 5 (C -> MAYOR_IGUAL .)
+    VALOR_INT       reduce using rule 5 (C -> MAYOR_IGUAL .)
+    VALOR_FLOAT     reduce using rule 5 (C -> MAYOR_IGUAL .)
+    ID              reduce using rule 5 (C -> MAYOR_IGUAL .)
+
+
+state 117
+
+    (6) C -> IGUAL .
+
+    NOT             reduce using rule 6 (C -> IGUAL .)
+    PARENTESIS_IZQUIERDO reduce using rule 6 (C -> IGUAL .)
+    FUNCTION        reduce using rule 6 (C -> IGUAL .)
+    VALOR_INT       reduce using rule 6 (C -> IGUAL .)
+    VALOR_FLOAT     reduce using rule 6 (C -> IGUAL .)
+    ID              reduce using rule 6 (C -> IGUAL .)
+
+
+state 118
+
+    (7) C -> DIFERENTE .
+
+    NOT             reduce using rule 7 (C -> DIFERENTE .)
+    PARENTESIS_IZQUIERDO reduce using rule 7 (C -> DIFERENTE .)
+    FUNCTION        reduce using rule 7 (C -> DIFERENTE .)
+    VALOR_INT       reduce using rule 7 (C -> DIFERENTE .)
+    VALOR_FLOAT     reduce using rule 7 (C -> DIFERENTE .)
+    ID              reduce using rule 7 (C -> DIFERENTE .)
+
+
+state 119
+
+    (15) E3 -> E3 AND . E4
+    (19) E4 -> . T
+    (20) E4 -> . NOT T
+    (21) T -> . PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+    (22) T -> . FUNCTION
+    (23) T -> . ID_COMPLETO
+    (24) T -> . VALOR_INT
+    (25) T -> . VALOR_FLOAT
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    NOT             shift and go to state 79
+    PARENTESIS_IZQUIERDO shift and go to state 80
+    FUNCTION        shift and go to state 81
+    VALOR_INT       shift and go to state 83
+    VALOR_FLOAT     shift and go to state 84
+    ID              shift and go to state 40
+
+    E4                             shift and go to state 148
+    T                              shift and go to state 78
+    ID_COMPLETO                    shift and go to state 82
+
+state 120
+
+    (16) E3 -> E3 POR . E4
+    (19) E4 -> . T
+    (20) E4 -> . NOT T
+    (21) T -> . PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+    (22) T -> . FUNCTION
+    (23) T -> . ID_COMPLETO
+    (24) T -> . VALOR_INT
+    (25) T -> . VALOR_FLOAT
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    NOT             shift and go to state 79
+    PARENTESIS_IZQUIERDO shift and go to state 80
+    FUNCTION        shift and go to state 81
+    VALOR_INT       shift and go to state 83
+    VALOR_FLOAT     shift and go to state 84
+    ID              shift and go to state 40
+
+    E4                             shift and go to state 149
+    T                              shift and go to state 78
+    ID_COMPLETO                    shift and go to state 82
+
+state 121
+
+    (17) E3 -> E3 ENTRE . E4
+    (19) E4 -> . T
+    (20) E4 -> . NOT T
+    (21) T -> . PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+    (22) T -> . FUNCTION
+    (23) T -> . ID_COMPLETO
+    (24) T -> . VALOR_INT
+    (25) T -> . VALOR_FLOAT
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    NOT             shift and go to state 79
+    PARENTESIS_IZQUIERDO shift and go to state 80
+    FUNCTION        shift and go to state 81
+    VALOR_INT       shift and go to state 83
+    VALOR_FLOAT     shift and go to state 84
+    ID              shift and go to state 40
+
+    E4                             shift and go to state 150
+    T                              shift and go to state 78
+    ID_COMPLETO                    shift and go to state 82
+
+state 122
+
+    (18) E3 -> E3 MODULO . E4
+    (19) E4 -> . T
+    (20) E4 -> . NOT T
+    (21) T -> . PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+    (22) T -> . FUNCTION
+    (23) T -> . ID_COMPLETO
+    (24) T -> . VALOR_INT
+    (25) T -> . VALOR_FLOAT
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    NOT             shift and go to state 79
+    PARENTESIS_IZQUIERDO shift and go to state 80
+    FUNCTION        shift and go to state 81
+    VALOR_INT       shift and go to state 83
+    VALOR_FLOAT     shift and go to state 84
+    ID              shift and go to state 40
+
+    E4                             shift and go to state 151
+    T                              shift and go to state 78
+    ID_COMPLETO                    shift and go to state 82
+
+state 123
+
+    (20) E4 -> NOT T .
+
+    AND             reduce using rule 20 (E4 -> NOT T .)
+    POR             reduce using rule 20 (E4 -> NOT T .)
+    ENTRE           reduce using rule 20 (E4 -> NOT T .)
+    MODULO          reduce using rule 20 (E4 -> NOT T .)
+    OR              reduce using rule 20 (E4 -> NOT T .)
+    MAS             reduce using rule 20 (E4 -> NOT T .)
+    MENOS           reduce using rule 20 (E4 -> NOT T .)
+    MENOR           reduce using rule 20 (E4 -> NOT T .)
+    MAYOR           reduce using rule 20 (E4 -> NOT T .)
+    MENOR_IGUAL     reduce using rule 20 (E4 -> NOT T .)
+    MAYOR_IGUAL     reduce using rule 20 (E4 -> NOT T .)
+    IGUAL           reduce using rule 20 (E4 -> NOT T .)
+    DIFERENTE       reduce using rule 20 (E4 -> NOT T .)
+    DOS_PUNTOS      reduce using rule 20 (E4 -> NOT T .)
+    PUNTO_COMA      reduce using rule 20 (E4 -> NOT T .)
+    PARENTESIS_DERECHO reduce using rule 20 (E4 -> NOT T .)
+    PROCEDURE       reduce using rule 20 (E4 -> NOT T .)
+    FUNCTION        reduce using rule 20 (E4 -> NOT T .)
+    PRINT           reduce using rule 20 (E4 -> NOT T .)
+    INPUT           reduce using rule 20 (E4 -> NOT T .)
+    ID              reduce using rule 20 (E4 -> NOT T .)
+    IF              reduce using rule 20 (E4 -> NOT T .)
+    DO              reduce using rule 20 (E4 -> NOT T .)
+    WHILE           reduce using rule 20 (E4 -> NOT T .)
+    FOR             reduce using rule 20 (E4 -> NOT T .)
+    END             reduce using rule 20 (E4 -> NOT T .)
+    ELSE            reduce using rule 20 (E4 -> NOT T .)
+    ELSIF           reduce using rule 20 (E4 -> NOT T .)
+
+
+state 124
+
+    (21) T -> PARENTESIS_IZQUIERDO E . PARENTESIS_DERECHO
+
+    PARENTESIS_DERECHO shift and go to state 152
+
+
+state 125
+
+    (44) EST -> A PUNTO_COMA EST .
+
+    END             reduce using rule 44 (EST -> A PUNTO_COMA EST .)
+    RETURN          reduce using rule 44 (EST -> A PUNTO_COMA EST .)
+    NOT             reduce using rule 44 (EST -> A PUNTO_COMA EST .)
+    PARENTESIS_IZQUIERDO reduce using rule 44 (EST -> A PUNTO_COMA EST .)
+    FUNCTION        reduce using rule 44 (EST -> A PUNTO_COMA EST .)
+    VALOR_INT       reduce using rule 44 (EST -> A PUNTO_COMA EST .)
+    VALOR_FLOAT     reduce using rule 44 (EST -> A PUNTO_COMA EST .)
+    ID              reduce using rule 44 (EST -> A PUNTO_COMA EST .)
+    WHILE           reduce using rule 44 (EST -> A PUNTO_COMA EST .)
+    ELSE            reduce using rule 44 (EST -> A PUNTO_COMA EST .)
+    ELSIF           reduce using rule 44 (EST -> A PUNTO_COMA EST .)
+    DOS_PUNTOS      reduce using rule 44 (EST -> A PUNTO_COMA EST .)
+
+
+state 126
+
+    (46) EST -> FUNCTION PUNTO_COMA EST .
+
+    END             reduce using rule 46 (EST -> FUNCTION PUNTO_COMA EST .)
+    RETURN          reduce using rule 46 (EST -> FUNCTION PUNTO_COMA EST .)
+    NOT             reduce using rule 46 (EST -> FUNCTION PUNTO_COMA EST .)
+    PARENTESIS_IZQUIERDO reduce using rule 46 (EST -> FUNCTION PUNTO_COMA EST .)
+    FUNCTION        reduce using rule 46 (EST -> FUNCTION PUNTO_COMA EST .)
+    VALOR_INT       reduce using rule 46 (EST -> FUNCTION PUNTO_COMA EST .)
+    VALOR_FLOAT     reduce using rule 46 (EST -> FUNCTION PUNTO_COMA EST .)
+    ID              reduce using rule 46 (EST -> FUNCTION PUNTO_COMA EST .)
+    WHILE           reduce using rule 46 (EST -> FUNCTION PUNTO_COMA EST .)
+    ELSE            reduce using rule 46 (EST -> FUNCTION PUNTO_COMA EST .)
+    ELSIF           reduce using rule 46 (EST -> FUNCTION PUNTO_COMA EST .)
+    DOS_PUNTOS      reduce using rule 46 (EST -> FUNCTION PUNTO_COMA EST .)
+
+
+state 127
+
+    (47) EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS . COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+
+    COMILLAS        shift and go to state 153
+
+
+state 128
+
+    (48) EST -> INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO . PUNTO_COMA EST
+
+    PUNTO_COMA      shift and go to state 154
+
+
+state 129
+
+    (49) EST -> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO . PUNTO_COMA EST
+
+    PUNTO_COMA      shift and go to state 155
+
+
+state 130
+
+    (53) DO_WHILE -> DO DOS_PUNTOS EST . WHILE E PUNTO_COMA
+
+    WHILE           shift and go to state 156
+
+
+state 131
+
+    (54) WHILE_ -> WHILE E DOS_PUNTOS . EST
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    END             reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+    EST                            shift and go to state 157
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 132
+
+    (55) FOR_ -> FOR EST E . EST DOS_PUNTOS EST
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    DOS_PUNTOS      reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+    EST                            shift and go to state 158
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 133
+
+    (39) A -> ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO . PARENTESIS_DERECHO
+
+    PARENTESIS_DERECHO shift and go to state 159
+
+
+state 134
+
+    (40) A -> ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO . PARENTESIS_DERECHO
+
+    PARENTESIS_DERECHO shift and go to state 160
+
+
+state 135
+
+    (28) RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO . RANGOS
+    (27) RANGOS -> . empty
+    (28) RANGOS -> . CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS
+    (1) empty -> .
+
+    CORCHETE_IZQUIERDO shift and go to state 66
+    PUNTO_COMA      reduce using rule 1 (empty -> .)
+    ASIGNACION      reduce using rule 1 (empty -> .)
+    AND             reduce using rule 1 (empty -> .)
+    POR             reduce using rule 1 (empty -> .)
+    ENTRE           reduce using rule 1 (empty -> .)
+    MODULO          reduce using rule 1 (empty -> .)
+    OR              reduce using rule 1 (empty -> .)
+    MAS             reduce using rule 1 (empty -> .)
+    MENOS           reduce using rule 1 (empty -> .)
+    MENOR           reduce using rule 1 (empty -> .)
+    MAYOR           reduce using rule 1 (empty -> .)
+    MENOR_IGUAL     reduce using rule 1 (empty -> .)
+    MAYOR_IGUAL     reduce using rule 1 (empty -> .)
+    IGUAL           reduce using rule 1 (empty -> .)
+    DIFERENTE       reduce using rule 1 (empty -> .)
+    DOS_PUNTOS      reduce using rule 1 (empty -> .)
+    PARENTESIS_DERECHO reduce using rule 1 (empty -> .)
+    PROCEDURE       reduce using rule 1 (empty -> .)
+    FUNCTION        reduce using rule 1 (empty -> .)
+    PRINT           reduce using rule 1 (empty -> .)
+    INPUT           reduce using rule 1 (empty -> .)
+    ID              reduce using rule 1 (empty -> .)
+    IF              reduce using rule 1 (empty -> .)
+    DO              reduce using rule 1 (empty -> .)
+    WHILE           reduce using rule 1 (empty -> .)
+    FOR             reduce using rule 1 (empty -> .)
+    END             reduce using rule 1 (empty -> .)
+    ELSE            reduce using rule 1 (empty -> .)
+    ELSIF           reduce using rule 1 (empty -> .)
+
+    RANGOS                         shift and go to state 161
+    empty                          shift and go to state 65
+
+state 136
+
+    (60) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 162
+
+
+state 137
+
+    (61) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA . END PROCEDURE PUNTO_COMA
+
+    END             shift and go to state 163
+
+
+state 138
+
+    (62) F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID . PUNTO_COMA END FUNCTION PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 164
+
+
+state 139
+
+    (63) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA .
+
+    PROCEDURE       reduce using rule 63 (MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA .)
+    INT             reduce using rule 63 (MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA .)
+    FLOAT           reduce using rule 63 (MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA .)
+    $end            reduce using rule 63 (MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA .)
+
+
+state 140
+
+    (64) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END . PROCEDURE PUNTO_COMA
+
+    PROCEDURE       shift and go to state 165
+
+
+state 141
+
+    (42) EST -> LOOP_ END LOOP PUNTO_COMA . EST
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    END             reduce using rule 1 (empty -> .)
+    RETURN          reduce using rule 1 (empty -> .)
+    NOT             reduce using rule 1 (empty -> .)
+    PARENTESIS_IZQUIERDO reduce using rule 1 (empty -> .)
+    VALOR_INT       reduce using rule 1 (empty -> .)
+    VALOR_FLOAT     reduce using rule 1 (empty -> .)
+    ELSE            reduce using rule 1 (empty -> .)
+    ELSIF           reduce using rule 1 (empty -> .)
+    DOS_PUNTOS      reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+  ! FUNCTION        [ reduce using rule 1 (empty -> .) ]
+  ! ID              [ reduce using rule 1 (empty -> .) ]
+  ! WHILE           [ reduce using rule 1 (empty -> .) ]
+
+    LOOP_                          shift and go to state 46
+    EST                            shift and go to state 166
+    empty                          shift and go to state 45
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 142
+
+    (43) EST -> IF_ END IF PUNTO_COMA . EST
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    END             reduce using rule 1 (empty -> .)
+    RETURN          reduce using rule 1 (empty -> .)
+    NOT             reduce using rule 1 (empty -> .)
+    PARENTESIS_IZQUIERDO reduce using rule 1 (empty -> .)
+    VALOR_INT       reduce using rule 1 (empty -> .)
+    VALOR_FLOAT     reduce using rule 1 (empty -> .)
+    ELSE            reduce using rule 1 (empty -> .)
+    ELSIF           reduce using rule 1 (empty -> .)
+    DOS_PUNTOS      reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+  ! FUNCTION        [ reduce using rule 1 (empty -> .) ]
+  ! ID              [ reduce using rule 1 (empty -> .) ]
+  ! WHILE           [ reduce using rule 1 (empty -> .) ]
+
+    IF_                            shift and go to state 47
+    EST                            shift and go to state 167
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 143
+
+    (56) IF_ -> IF E DOS_PUNTOS EST . ELSIF_
+    (57) ELSIF_ -> . END IF PUNTO_COMA
+    (58) ELSIF_ -> . ELSE DOS_PUNTOS EST END IF PUNTO_COMA
+    (59) ELSIF_ -> . ELSIF DOS_PUNTOS E EST ELSIF_
+
+    END             shift and go to state 169
+    ELSE            shift and go to state 170
+    ELSIF           shift and go to state 171
+
+    ELSIF_                         shift and go to state 168
+
+state 144
+
+    (9) E -> E2 C E2 .
+    (11) E2 -> E2 . OR E3
+    (12) E2 -> E2 . MAS E3
+    (13) E2 -> E2 . MENOS E3
+
+    DOS_PUNTOS      reduce using rule 9 (E -> E2 C E2 .)
+    PUNTO_COMA      reduce using rule 9 (E -> E2 C E2 .)
+    PARENTESIS_DERECHO reduce using rule 9 (E -> E2 C E2 .)
+    PROCEDURE       reduce using rule 9 (E -> E2 C E2 .)
+    FUNCTION        reduce using rule 9 (E -> E2 C E2 .)
+    PRINT           reduce using rule 9 (E -> E2 C E2 .)
+    INPUT           reduce using rule 9 (E -> E2 C E2 .)
+    ID              reduce using rule 9 (E -> E2 C E2 .)
+    IF              reduce using rule 9 (E -> E2 C E2 .)
+    DO              reduce using rule 9 (E -> E2 C E2 .)
+    WHILE           reduce using rule 9 (E -> E2 C E2 .)
+    FOR             reduce using rule 9 (E -> E2 C E2 .)
+    END             reduce using rule 9 (E -> E2 C E2 .)
+    ELSE            reduce using rule 9 (E -> E2 C E2 .)
+    ELSIF           reduce using rule 9 (E -> E2 C E2 .)
+    OR              shift and go to state 110
+    MAS             shift and go to state 111
+    MENOS           shift and go to state 112
+
+
+state 145
+
+    (11) E2 -> E2 OR E3 .
+    (15) E3 -> E3 . AND E4
+    (16) E3 -> E3 . POR E4
+    (17) E3 -> E3 . ENTRE E4
+    (18) E3 -> E3 . MODULO E4
+
+    OR              reduce using rule 11 (E2 -> E2 OR E3 .)
+    MAS             reduce using rule 11 (E2 -> E2 OR E3 .)
+    MENOS           reduce using rule 11 (E2 -> E2 OR E3 .)
+    MENOR           reduce using rule 11 (E2 -> E2 OR E3 .)
+    MAYOR           reduce using rule 11 (E2 -> E2 OR E3 .)
+    MENOR_IGUAL     reduce using rule 11 (E2 -> E2 OR E3 .)
+    MAYOR_IGUAL     reduce using rule 11 (E2 -> E2 OR E3 .)
+    IGUAL           reduce using rule 11 (E2 -> E2 OR E3 .)
+    DIFERENTE       reduce using rule 11 (E2 -> E2 OR E3 .)
+    DOS_PUNTOS      reduce using rule 11 (E2 -> E2 OR E3 .)
+    PUNTO_COMA      reduce using rule 11 (E2 -> E2 OR E3 .)
+    PARENTESIS_DERECHO reduce using rule 11 (E2 -> E2 OR E3 .)
+    PROCEDURE       reduce using rule 11 (E2 -> E2 OR E3 .)
+    FUNCTION        reduce using rule 11 (E2 -> E2 OR E3 .)
+    PRINT           reduce using rule 11 (E2 -> E2 OR E3 .)
+    INPUT           reduce using rule 11 (E2 -> E2 OR E3 .)
+    ID              reduce using rule 11 (E2 -> E2 OR E3 .)
+    IF              reduce using rule 11 (E2 -> E2 OR E3 .)
+    DO              reduce using rule 11 (E2 -> E2 OR E3 .)
+    WHILE           reduce using rule 11 (E2 -> E2 OR E3 .)
+    FOR             reduce using rule 11 (E2 -> E2 OR E3 .)
+    END             reduce using rule 11 (E2 -> E2 OR E3 .)
+    ELSE            reduce using rule 11 (E2 -> E2 OR E3 .)
+    ELSIF           reduce using rule 11 (E2 -> E2 OR E3 .)
+    AND             shift and go to state 119
+    POR             shift and go to state 120
+    ENTRE           shift and go to state 121
+    MODULO          shift and go to state 122
+
+
+state 146
+
+    (12) E2 -> E2 MAS E3 .
+    (15) E3 -> E3 . AND E4
+    (16) E3 -> E3 . POR E4
+    (17) E3 -> E3 . ENTRE E4
+    (18) E3 -> E3 . MODULO E4
+
+    OR              reduce using rule 12 (E2 -> E2 MAS E3 .)
+    MAS             reduce using rule 12 (E2 -> E2 MAS E3 .)
+    MENOS           reduce using rule 12 (E2 -> E2 MAS E3 .)
+    MENOR           reduce using rule 12 (E2 -> E2 MAS E3 .)
+    MAYOR           reduce using rule 12 (E2 -> E2 MAS E3 .)
+    MENOR_IGUAL     reduce using rule 12 (E2 -> E2 MAS E3 .)
+    MAYOR_IGUAL     reduce using rule 12 (E2 -> E2 MAS E3 .)
+    IGUAL           reduce using rule 12 (E2 -> E2 MAS E3 .)
+    DIFERENTE       reduce using rule 12 (E2 -> E2 MAS E3 .)
+    DOS_PUNTOS      reduce using rule 12 (E2 -> E2 MAS E3 .)
+    PUNTO_COMA      reduce using rule 12 (E2 -> E2 MAS E3 .)
+    PARENTESIS_DERECHO reduce using rule 12 (E2 -> E2 MAS E3 .)
+    PROCEDURE       reduce using rule 12 (E2 -> E2 MAS E3 .)
+    FUNCTION        reduce using rule 12 (E2 -> E2 MAS E3 .)
+    PRINT           reduce using rule 12 (E2 -> E2 MAS E3 .)
+    INPUT           reduce using rule 12 (E2 -> E2 MAS E3 .)
+    ID              reduce using rule 12 (E2 -> E2 MAS E3 .)
+    IF              reduce using rule 12 (E2 -> E2 MAS E3 .)
+    DO              reduce using rule 12 (E2 -> E2 MAS E3 .)
+    WHILE           reduce using rule 12 (E2 -> E2 MAS E3 .)
+    FOR             reduce using rule 12 (E2 -> E2 MAS E3 .)
+    END             reduce using rule 12 (E2 -> E2 MAS E3 .)
+    ELSE            reduce using rule 12 (E2 -> E2 MAS E3 .)
+    ELSIF           reduce using rule 12 (E2 -> E2 MAS E3 .)
+    AND             shift and go to state 119
+    POR             shift and go to state 120
+    ENTRE           shift and go to state 121
+    MODULO          shift and go to state 122
+
+
+state 147
+
+    (13) E2 -> E2 MENOS E3 .
+    (15) E3 -> E3 . AND E4
+    (16) E3 -> E3 . POR E4
+    (17) E3 -> E3 . ENTRE E4
+    (18) E3 -> E3 . MODULO E4
+
+    OR              reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    MAS             reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    MENOS           reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    MENOR           reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    MAYOR           reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    MENOR_IGUAL     reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    MAYOR_IGUAL     reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    IGUAL           reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    DIFERENTE       reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    DOS_PUNTOS      reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    PUNTO_COMA      reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    PARENTESIS_DERECHO reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    PROCEDURE       reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    FUNCTION        reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    PRINT           reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    INPUT           reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    ID              reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    IF              reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    DO              reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    WHILE           reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    FOR             reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    END             reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    ELSE            reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    ELSIF           reduce using rule 13 (E2 -> E2 MENOS E3 .)
+    AND             shift and go to state 119
+    POR             shift and go to state 120
+    ENTRE           shift and go to state 121
+    MODULO          shift and go to state 122
+
+
+state 148
+
+    (15) E3 -> E3 AND E4 .
+
+    AND             reduce using rule 15 (E3 -> E3 AND E4 .)
+    POR             reduce using rule 15 (E3 -> E3 AND E4 .)
+    ENTRE           reduce using rule 15 (E3 -> E3 AND E4 .)
+    MODULO          reduce using rule 15 (E3 -> E3 AND E4 .)
+    OR              reduce using rule 15 (E3 -> E3 AND E4 .)
+    MAS             reduce using rule 15 (E3 -> E3 AND E4 .)
+    MENOS           reduce using rule 15 (E3 -> E3 AND E4 .)
+    MENOR           reduce using rule 15 (E3 -> E3 AND E4 .)
+    MAYOR           reduce using rule 15 (E3 -> E3 AND E4 .)
+    MENOR_IGUAL     reduce using rule 15 (E3 -> E3 AND E4 .)
+    MAYOR_IGUAL     reduce using rule 15 (E3 -> E3 AND E4 .)
+    IGUAL           reduce using rule 15 (E3 -> E3 AND E4 .)
+    DIFERENTE       reduce using rule 15 (E3 -> E3 AND E4 .)
+    DOS_PUNTOS      reduce using rule 15 (E3 -> E3 AND E4 .)
+    PUNTO_COMA      reduce using rule 15 (E3 -> E3 AND E4 .)
+    PARENTESIS_DERECHO reduce using rule 15 (E3 -> E3 AND E4 .)
+    PROCEDURE       reduce using rule 15 (E3 -> E3 AND E4 .)
+    FUNCTION        reduce using rule 15 (E3 -> E3 AND E4 .)
+    PRINT           reduce using rule 15 (E3 -> E3 AND E4 .)
+    INPUT           reduce using rule 15 (E3 -> E3 AND E4 .)
+    ID              reduce using rule 15 (E3 -> E3 AND E4 .)
+    IF              reduce using rule 15 (E3 -> E3 AND E4 .)
+    DO              reduce using rule 15 (E3 -> E3 AND E4 .)
+    WHILE           reduce using rule 15 (E3 -> E3 AND E4 .)
+    FOR             reduce using rule 15 (E3 -> E3 AND E4 .)
+    END             reduce using rule 15 (E3 -> E3 AND E4 .)
+    ELSE            reduce using rule 15 (E3 -> E3 AND E4 .)
+    ELSIF           reduce using rule 15 (E3 -> E3 AND E4 .)
+
+
+state 149
+
+    (16) E3 -> E3 POR E4 .
+
+    AND             reduce using rule 16 (E3 -> E3 POR E4 .)
+    POR             reduce using rule 16 (E3 -> E3 POR E4 .)
+    ENTRE           reduce using rule 16 (E3 -> E3 POR E4 .)
+    MODULO          reduce using rule 16 (E3 -> E3 POR E4 .)
+    OR              reduce using rule 16 (E3 -> E3 POR E4 .)
+    MAS             reduce using rule 16 (E3 -> E3 POR E4 .)
+    MENOS           reduce using rule 16 (E3 -> E3 POR E4 .)
+    MENOR           reduce using rule 16 (E3 -> E3 POR E4 .)
+    MAYOR           reduce using rule 16 (E3 -> E3 POR E4 .)
+    MENOR_IGUAL     reduce using rule 16 (E3 -> E3 POR E4 .)
+    MAYOR_IGUAL     reduce using rule 16 (E3 -> E3 POR E4 .)
+    IGUAL           reduce using rule 16 (E3 -> E3 POR E4 .)
+    DIFERENTE       reduce using rule 16 (E3 -> E3 POR E4 .)
+    DOS_PUNTOS      reduce using rule 16 (E3 -> E3 POR E4 .)
+    PUNTO_COMA      reduce using rule 16 (E3 -> E3 POR E4 .)
+    PARENTESIS_DERECHO reduce using rule 16 (E3 -> E3 POR E4 .)
+    PROCEDURE       reduce using rule 16 (E3 -> E3 POR E4 .)
+    FUNCTION        reduce using rule 16 (E3 -> E3 POR E4 .)
+    PRINT           reduce using rule 16 (E3 -> E3 POR E4 .)
+    INPUT           reduce using rule 16 (E3 -> E3 POR E4 .)
+    ID              reduce using rule 16 (E3 -> E3 POR E4 .)
+    IF              reduce using rule 16 (E3 -> E3 POR E4 .)
+    DO              reduce using rule 16 (E3 -> E3 POR E4 .)
+    WHILE           reduce using rule 16 (E3 -> E3 POR E4 .)
+    FOR             reduce using rule 16 (E3 -> E3 POR E4 .)
+    END             reduce using rule 16 (E3 -> E3 POR E4 .)
+    ELSE            reduce using rule 16 (E3 -> E3 POR E4 .)
+    ELSIF           reduce using rule 16 (E3 -> E3 POR E4 .)
+
+
+state 150
+
+    (17) E3 -> E3 ENTRE E4 .
+
+    AND             reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    POR             reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    ENTRE           reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    MODULO          reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    OR              reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    MAS             reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    MENOS           reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    MENOR           reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    MAYOR           reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    MENOR_IGUAL     reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    MAYOR_IGUAL     reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    IGUAL           reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    DIFERENTE       reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    DOS_PUNTOS      reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    PUNTO_COMA      reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    PARENTESIS_DERECHO reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    PROCEDURE       reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    FUNCTION        reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    PRINT           reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    INPUT           reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    ID              reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    IF              reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    DO              reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    WHILE           reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    FOR             reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    END             reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    ELSE            reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+    ELSIF           reduce using rule 17 (E3 -> E3 ENTRE E4 .)
+
+
+state 151
+
+    (18) E3 -> E3 MODULO E4 .
+
+    AND             reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    POR             reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    ENTRE           reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    MODULO          reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    OR              reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    MAS             reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    MENOS           reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    MENOR           reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    MAYOR           reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    MENOR_IGUAL     reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    MAYOR_IGUAL     reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    IGUAL           reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    DIFERENTE       reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    DOS_PUNTOS      reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    PUNTO_COMA      reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    PARENTESIS_DERECHO reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    PROCEDURE       reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    FUNCTION        reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    PRINT           reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    INPUT           reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    ID              reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    IF              reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    DO              reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    WHILE           reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    FOR             reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    END             reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    ELSE            reduce using rule 18 (E3 -> E3 MODULO E4 .)
+    ELSIF           reduce using rule 18 (E3 -> E3 MODULO E4 .)
+
+
+state 152
+
+    (21) T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .
+
+    AND             reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    POR             reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    ENTRE           reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    MODULO          reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    OR              reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    MAS             reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    MENOS           reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    MENOR           reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    MAYOR           reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    MENOR_IGUAL     reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    MAYOR_IGUAL     reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    IGUAL           reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    DIFERENTE       reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    DOS_PUNTOS      reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    PUNTO_COMA      reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    PARENTESIS_DERECHO reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    PROCEDURE       reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    FUNCTION        reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    PRINT           reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    INPUT           reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    ID              reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    IF              reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    DO              reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    WHILE           reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    FOR             reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    END             reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    ELSE            reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+    ELSIF           reduce using rule 21 (T -> PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO .)
+
+
+state 153
+
+    (47) EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS . PARENTESIS_DERECHO PUNTO_COMA EST
+
+    PARENTESIS_DERECHO shift and go to state 172
+
+
+state 154
+
+    (48) EST -> INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA . EST
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    END             reduce using rule 1 (empty -> .)
+    RETURN          reduce using rule 1 (empty -> .)
+    NOT             reduce using rule 1 (empty -> .)
+    PARENTESIS_IZQUIERDO reduce using rule 1 (empty -> .)
+    VALOR_INT       reduce using rule 1 (empty -> .)
+    VALOR_FLOAT     reduce using rule 1 (empty -> .)
+    ELSE            reduce using rule 1 (empty -> .)
+    ELSIF           reduce using rule 1 (empty -> .)
+    DOS_PUNTOS      reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+  ! FUNCTION        [ reduce using rule 1 (empty -> .) ]
+  ! ID              [ reduce using rule 1 (empty -> .) ]
+  ! WHILE           [ reduce using rule 1 (empty -> .) ]
+
+    EST                            shift and go to state 173
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 155
+
+    (49) EST -> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA . EST
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    END             reduce using rule 1 (empty -> .)
+    RETURN          reduce using rule 1 (empty -> .)
+    NOT             reduce using rule 1 (empty -> .)
+    PARENTESIS_IZQUIERDO reduce using rule 1 (empty -> .)
+    VALOR_INT       reduce using rule 1 (empty -> .)
+    VALOR_FLOAT     reduce using rule 1 (empty -> .)
+    ELSE            reduce using rule 1 (empty -> .)
+    ELSIF           reduce using rule 1 (empty -> .)
+    DOS_PUNTOS      reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+  ! FUNCTION        [ reduce using rule 1 (empty -> .) ]
+  ! ID              [ reduce using rule 1 (empty -> .) ]
+  ! WHILE           [ reduce using rule 1 (empty -> .) ]
+
+    EST                            shift and go to state 174
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 156
+
+    (53) DO_WHILE -> DO DOS_PUNTOS EST WHILE . E PUNTO_COMA
+    (8) E -> . E2
+    (9) E -> . E2 C E2
+    (10) E2 -> . E3
+    (11) E2 -> . E2 OR E3
+    (12) E2 -> . E2 MAS E3
+    (13) E2 -> . E2 MENOS E3
+    (14) E3 -> . E4
+    (15) E3 -> . E3 AND E4
+    (16) E3 -> . E3 POR E4
+    (17) E3 -> . E3 ENTRE E4
+    (18) E3 -> . E3 MODULO E4
+    (19) E4 -> . T
+    (20) E4 -> . NOT T
+    (21) T -> . PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+    (22) T -> . FUNCTION
+    (23) T -> . ID_COMPLETO
+    (24) T -> . VALOR_INT
+    (25) T -> . VALOR_FLOAT
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    NOT             shift and go to state 79
+    PARENTESIS_IZQUIERDO shift and go to state 80
+    FUNCTION        shift and go to state 81
+    VALOR_INT       shift and go to state 83
+    VALOR_FLOAT     shift and go to state 84
+    ID              shift and go to state 40
+
+    E                              shift and go to state 175
+    E2                             shift and go to state 75
+    E3                             shift and go to state 76
+    E4                             shift and go to state 77
+    T                              shift and go to state 78
+    ID_COMPLETO                    shift and go to state 82
+
+state 157
+
+    (54) WHILE_ -> WHILE E DOS_PUNTOS EST .
+
+    END             reduce using rule 54 (WHILE_ -> WHILE E DOS_PUNTOS EST .)
+
+
+state 158
+
+    (55) FOR_ -> FOR EST E EST . DOS_PUNTOS EST
+
+    DOS_PUNTOS      shift and go to state 176
+
+
+state 159
+
+    (39) A -> ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO .
+
+    PUNTO_COMA      reduce using rule 39 (A -> ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO .)
+
+
+state 160
+
+    (40) A -> ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO .
+
+    PUNTO_COMA      reduce using rule 40 (A -> ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO .)
+
+
+state 161
+
+    (28) RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .
+
+    PUNTO_COMA      reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    ASIGNACION      reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    AND             reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    POR             reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    ENTRE           reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    MODULO          reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    OR              reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    MAS             reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    MENOS           reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    MENOR           reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    MAYOR           reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    MENOR_IGUAL     reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    MAYOR_IGUAL     reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    IGUAL           reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    DIFERENTE       reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    DOS_PUNTOS      reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    PARENTESIS_DERECHO reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    PROCEDURE       reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    FUNCTION        reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    PRINT           reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    INPUT           reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    ID              reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    IF              reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    DO              reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    WHILE           reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    FOR             reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    END             reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    ELSE            reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+    ELSIF           reduce using rule 28 (RANGOS -> CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS .)
+
+
+state 162
+
+    (60) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA .
+
+    PROCEDURE       reduce using rule 60 (P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA .)
+    INT             reduce using rule 60 (P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA .)
+    FLOAT           reduce using rule 60 (P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA .)
+    $end            reduce using rule 60 (P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA .)
+
+
+state 163
+
+    (61) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END . PROCEDURE PUNTO_COMA
+
+    PROCEDURE       shift and go to state 177
+
+
+state 164
+
+    (62) F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA . END FUNCTION PUNTO_COMA
+
+    END             shift and go to state 178
+
+
+state 165
+
+    (64) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 179
+
+
+state 166
+
+    (42) EST -> LOOP_ END LOOP PUNTO_COMA EST .
+
+    END             reduce using rule 42 (EST -> LOOP_ END LOOP PUNTO_COMA EST .)
+    RETURN          reduce using rule 42 (EST -> LOOP_ END LOOP PUNTO_COMA EST .)
+    NOT             reduce using rule 42 (EST -> LOOP_ END LOOP PUNTO_COMA EST .)
+    PARENTESIS_IZQUIERDO reduce using rule 42 (EST -> LOOP_ END LOOP PUNTO_COMA EST .)
+    FUNCTION        reduce using rule 42 (EST -> LOOP_ END LOOP PUNTO_COMA EST .)
+    VALOR_INT       reduce using rule 42 (EST -> LOOP_ END LOOP PUNTO_COMA EST .)
+    VALOR_FLOAT     reduce using rule 42 (EST -> LOOP_ END LOOP PUNTO_COMA EST .)
+    ID              reduce using rule 42 (EST -> LOOP_ END LOOP PUNTO_COMA EST .)
+    WHILE           reduce using rule 42 (EST -> LOOP_ END LOOP PUNTO_COMA EST .)
+    ELSE            reduce using rule 42 (EST -> LOOP_ END LOOP PUNTO_COMA EST .)
+    ELSIF           reduce using rule 42 (EST -> LOOP_ END LOOP PUNTO_COMA EST .)
+    DOS_PUNTOS      reduce using rule 42 (EST -> LOOP_ END LOOP PUNTO_COMA EST .)
+
+
+state 167
+
+    (43) EST -> IF_ END IF PUNTO_COMA EST .
+
+    END             reduce using rule 43 (EST -> IF_ END IF PUNTO_COMA EST .)
+    RETURN          reduce using rule 43 (EST -> IF_ END IF PUNTO_COMA EST .)
+    NOT             reduce using rule 43 (EST -> IF_ END IF PUNTO_COMA EST .)
+    PARENTESIS_IZQUIERDO reduce using rule 43 (EST -> IF_ END IF PUNTO_COMA EST .)
+    FUNCTION        reduce using rule 43 (EST -> IF_ END IF PUNTO_COMA EST .)
+    VALOR_INT       reduce using rule 43 (EST -> IF_ END IF PUNTO_COMA EST .)
+    VALOR_FLOAT     reduce using rule 43 (EST -> IF_ END IF PUNTO_COMA EST .)
+    ID              reduce using rule 43 (EST -> IF_ END IF PUNTO_COMA EST .)
+    WHILE           reduce using rule 43 (EST -> IF_ END IF PUNTO_COMA EST .)
+    ELSE            reduce using rule 43 (EST -> IF_ END IF PUNTO_COMA EST .)
+    ELSIF           reduce using rule 43 (EST -> IF_ END IF PUNTO_COMA EST .)
+    DOS_PUNTOS      reduce using rule 43 (EST -> IF_ END IF PUNTO_COMA EST .)
+
+
+state 168
+
+    (56) IF_ -> IF E DOS_PUNTOS EST ELSIF_ .
+
+    END             reduce using rule 56 (IF_ -> IF E DOS_PUNTOS EST ELSIF_ .)
+
+
+state 169
+
+    (57) ELSIF_ -> END . IF PUNTO_COMA
+
+    IF              shift and go to state 180
+
+
+state 170
+
+    (58) ELSIF_ -> ELSE . DOS_PUNTOS EST END IF PUNTO_COMA
+
+    DOS_PUNTOS      shift and go to state 181
+
+
+state 171
+
+    (59) ELSIF_ -> ELSIF . DOS_PUNTOS E EST ELSIF_
+
+    DOS_PUNTOS      shift and go to state 182
+
+
+state 172
+
+    (47) EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO . PUNTO_COMA EST
+
+    PUNTO_COMA      shift and go to state 183
+
+
+state 173
+
+    (48) EST -> INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .
+
+    END             reduce using rule 48 (EST -> INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    RETURN          reduce using rule 48 (EST -> INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    NOT             reduce using rule 48 (EST -> INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    PARENTESIS_IZQUIERDO reduce using rule 48 (EST -> INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    FUNCTION        reduce using rule 48 (EST -> INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    VALOR_INT       reduce using rule 48 (EST -> INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    VALOR_FLOAT     reduce using rule 48 (EST -> INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    ID              reduce using rule 48 (EST -> INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    WHILE           reduce using rule 48 (EST -> INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    ELSE            reduce using rule 48 (EST -> INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    ELSIF           reduce using rule 48 (EST -> INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    DOS_PUNTOS      reduce using rule 48 (EST -> INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+
+
+state 174
+
+    (49) EST -> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .
+
+    END             reduce using rule 49 (EST -> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    RETURN          reduce using rule 49 (EST -> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    NOT             reduce using rule 49 (EST -> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    PARENTESIS_IZQUIERDO reduce using rule 49 (EST -> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    FUNCTION        reduce using rule 49 (EST -> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    VALOR_INT       reduce using rule 49 (EST -> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    VALOR_FLOAT     reduce using rule 49 (EST -> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    ID              reduce using rule 49 (EST -> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    WHILE           reduce using rule 49 (EST -> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    ELSE            reduce using rule 49 (EST -> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    ELSIF           reduce using rule 49 (EST -> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+    DOS_PUNTOS      reduce using rule 49 (EST -> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST .)
+
+
+state 175
+
+    (53) DO_WHILE -> DO DOS_PUNTOS EST WHILE E . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 184
+
+
+state 176
+
+    (55) FOR_ -> FOR EST E EST DOS_PUNTOS . EST
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    END             reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+    EST                            shift and go to state 185
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 177
+
+    (61) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 186
+
+
+state 178
+
+    (62) F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END . FUNCTION PUNTO_COMA
+
+    FUNCTION        shift and go to state 187
+
+
+state 179
+
+    (64) MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA .
+
+    PROCEDURE       reduce using rule 64 (MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA .)
+    INT             reduce using rule 64 (MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA .)
+    FLOAT           reduce using rule 64 (MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA .)
+    $end            reduce using rule 64 (MP -> PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA .)
+
+
+state 180
+
+    (57) ELSIF_ -> END IF . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 188
+
+
+state 181
+
+    (58) ELSIF_ -> ELSE DOS_PUNTOS . EST END IF PUNTO_COMA
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    END             reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+    EST                            shift and go to state 189
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 182
+
+    (59) ELSIF_ -> ELSIF DOS_PUNTOS . E EST ELSIF_
+    (8) E -> . E2
+    (9) E -> . E2 C E2
+    (10) E2 -> . E3
+    (11) E2 -> . E2 OR E3
+    (12) E2 -> . E2 MAS E3
+    (13) E2 -> . E2 MENOS E3
+    (14) E3 -> . E4
+    (15) E3 -> . E3 AND E4
+    (16) E3 -> . E3 POR E4
+    (17) E3 -> . E3 ENTRE E4
+    (18) E3 -> . E3 MODULO E4
+    (19) E4 -> . T
+    (20) E4 -> . NOT T
+    (21) T -> . PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
+    (22) T -> . FUNCTION
+    (23) T -> . ID_COMPLETO
+    (24) T -> . VALOR_INT
+    (25) T -> . VALOR_FLOAT
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    NOT             shift and go to state 79
+    PARENTESIS_IZQUIERDO shift and go to state 80
+    FUNCTION        shift and go to state 81
+    VALOR_INT       shift and go to state 83
+    VALOR_FLOAT     shift and go to state 84
+    ID              shift and go to state 40
+
+    E                              shift and go to state 190
+    E2                             shift and go to state 75
+    E3                             shift and go to state 76
+    E4                             shift and go to state 77
+    T                              shift and go to state 78
+    ID_COMPLETO                    shift and go to state 82
+
+state 183
+
+    (47) EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA . EST
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    END             reduce using rule 1 (empty -> .)
+    RETURN          reduce using rule 1 (empty -> .)
+    NOT             reduce using rule 1 (empty -> .)
+    PARENTESIS_IZQUIERDO reduce using rule 1 (empty -> .)
+    VALOR_INT       reduce using rule 1 (empty -> .)
+    VALOR_FLOAT     reduce using rule 1 (empty -> .)
+    ELSE            reduce using rule 1 (empty -> .)
+    ELSIF           reduce using rule 1 (empty -> .)
+    DOS_PUNTOS      reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+  ! FUNCTION        [ reduce using rule 1 (empty -> .) ]
+  ! ID              [ reduce using rule 1 (empty -> .) ]
+  ! WHILE           [ reduce using rule 1 (empty -> .) ]
+
+    EST                            shift and go to state 191
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 184
+
+    (53) DO_WHILE -> DO DOS_PUNTOS EST WHILE E PUNTO_COMA .
+
+    END             reduce using rule 53 (DO_WHILE -> DO DOS_PUNTOS EST WHILE E PUNTO_COMA .)
+
+
+state 185
+
+    (55) FOR_ -> FOR EST E EST DOS_PUNTOS EST .
+
+    END             reduce using rule 55 (FOR_ -> FOR EST E EST DOS_PUNTOS EST .)
+
+
+state 186
+
+    (61) P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA .
+
+    PROCEDURE       reduce using rule 61 (P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA .)
+    INT             reduce using rule 61 (P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA .)
+    FLOAT           reduce using rule 61 (P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA .)
+    $end            reduce using rule 61 (P -> PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA .)
+
+
+state 187
+
+    (62) F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 192
+
+
+state 188
+
+    (57) ELSIF_ -> END IF PUNTO_COMA .
+
+    END             reduce using rule 57 (ELSIF_ -> END IF PUNTO_COMA .)
+
+
+state 189
+
+    (58) ELSIF_ -> ELSE DOS_PUNTOS EST . END IF PUNTO_COMA
+
+    END             shift and go to state 193
+
+
+state 190
+
+    (59) ELSIF_ -> ELSIF DOS_PUNTOS E . EST ELSIF_
+    (41) EST -> . empty
+    (42) EST -> . LOOP_ END LOOP PUNTO_COMA EST
+    (43) EST -> . IF_ END IF PUNTO_COMA EST
+    (44) EST -> . A PUNTO_COMA EST
+    (45) EST -> . PROCEDURE PUNTO_COMA EST
+    (46) EST -> . FUNCTION PUNTO_COMA EST
+    (47) EST -> . PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
+    (48) EST -> . INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (49) EST -> . ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
+    (1) empty -> .
+    (50) LOOP_ -> . DO_WHILE
+    (51) LOOP_ -> . WHILE_
+    (52) LOOP_ -> . FOR_
+    (56) IF_ -> . IF E DOS_PUNTOS EST ELSIF_
+    (35) A -> . ID_COMPLETO ASIGNACION VALOR_INT
+    (36) A -> . ID_COMPLETO ASIGNACION VALOR_FLOAT
+    (37) A -> . ID_COMPLETO ASIGNACION E
+    (38) A -> . ID_COMPLETO ASIGNACION ID_COMPLETO
+    (39) A -> . ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (40) A -> . ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+    (53) DO_WHILE -> . DO DOS_PUNTOS EST WHILE E PUNTO_COMA
+    (54) WHILE_ -> . WHILE E DOS_PUNTOS EST
+    (55) FOR_ -> . FOR EST E EST DOS_PUNTOS EST
+    (26) ID_COMPLETO -> . ID RANGOS
+
+    PROCEDURE       shift and go to state 43
+    FUNCTION        shift and go to state 50
+    PRINT           shift and go to state 51
+    INPUT           shift and go to state 52
+    ID              shift and go to state 53
+    END             reduce using rule 1 (empty -> .)
+    ELSE            reduce using rule 1 (empty -> .)
+    ELSIF           reduce using rule 1 (empty -> .)
+    IF              shift and go to state 48
+    DO              shift and go to state 58
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 60
+
+    EST                            shift and go to state 194
+    empty                          shift and go to state 45
+    LOOP_                          shift and go to state 46
+    IF_                            shift and go to state 47
+    A                              shift and go to state 49
+    DO_WHILE                       shift and go to state 54
+    WHILE_                         shift and go to state 55
+    FOR_                           shift and go to state 56
+    ID_COMPLETO                    shift and go to state 57
+
+state 191
+
+    (47) EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST .
+
+    END             reduce using rule 47 (EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST .)
+    RETURN          reduce using rule 47 (EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST .)
+    NOT             reduce using rule 47 (EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST .)
+    PARENTESIS_IZQUIERDO reduce using rule 47 (EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST .)
+    FUNCTION        reduce using rule 47 (EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST .)
+    VALOR_INT       reduce using rule 47 (EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST .)
+    VALOR_FLOAT     reduce using rule 47 (EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST .)
+    ID              reduce using rule 47 (EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST .)
+    WHILE           reduce using rule 47 (EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST .)
+    ELSE            reduce using rule 47 (EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST .)
+    ELSIF           reduce using rule 47 (EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST .)
+    DOS_PUNTOS      reduce using rule 47 (EST -> PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST .)
+
+
+state 192
+
+    (62) F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA .
+
+    PROCEDURE       reduce using rule 62 (F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA .)
+    INT             reduce using rule 62 (F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA .)
+    FLOAT           reduce using rule 62 (F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA .)
+    $end            reduce using rule 62 (F -> TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA .)
+
+
+state 193
+
+    (58) ELSIF_ -> ELSE DOS_PUNTOS EST END . IF PUNTO_COMA
+
+    IF              shift and go to state 195
+
+
+state 194
+
+    (59) ELSIF_ -> ELSIF DOS_PUNTOS E EST . ELSIF_
+    (57) ELSIF_ -> . END IF PUNTO_COMA
+    (58) ELSIF_ -> . ELSE DOS_PUNTOS EST END IF PUNTO_COMA
+    (59) ELSIF_ -> . ELSIF DOS_PUNTOS E EST ELSIF_
+
+    END             shift and go to state 169
+    ELSE            shift and go to state 170
+    ELSIF           shift and go to state 171
+
+    ELSIF_                         shift and go to state 196
+
+state 195
+
+    (58) ELSIF_ -> ELSE DOS_PUNTOS EST END IF . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 197
+
+
+state 196
+
+    (59) ELSIF_ -> ELSIF DOS_PUNTOS E EST ELSIF_ .
+
+    END             reduce using rule 59 (ELSIF_ -> ELSIF DOS_PUNTOS E EST ELSIF_ .)
+
+
+state 197
+
+    (58) ELSIF_ -> ELSE DOS_PUNTOS EST END IF PUNTO_COMA .
+
+    END             reduce using rule 58 (ELSIF_ -> ELSE DOS_PUNTOS EST END IF PUNTO_COMA .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for FUNCTION in state 60 resolved as shift
+WARNING: shift/reduce conflict for ID in state 60 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 69 resolved as shift
+WARNING: shift/reduce conflict for ID in state 69 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 69 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 85 resolved as shift
+WARNING: shift/reduce conflict for ID in state 85 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 85 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 86 resolved as shift
+WARNING: shift/reduce conflict for ID in state 86 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 86 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 90 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 141 resolved as shift
+WARNING: shift/reduce conflict for ID in state 141 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 141 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 142 resolved as shift
+WARNING: shift/reduce conflict for ID in state 142 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 142 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 154 resolved as shift
+WARNING: shift/reduce conflict for ID in state 154 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 154 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 155 resolved as shift
+WARNING: shift/reduce conflict for ID in state 155 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 155 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 183 resolved as shift
+WARNING: shift/reduce conflict for ID in state 183 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 183 resolved as shift
+WARNING: reduce/reduce conflict in state 93 resolved using rule (T -> ID_COMPLETO)
+WARNING: rejected rule (A -> ID_COMPLETO ASIGNACION ID_COMPLETO) in state 93
+WARNING: reduce/reduce conflict in state 94 resolved using rule (T -> VALOR_INT)
+WARNING: rejected rule (A -> ID_COMPLETO ASIGNACION VALOR_INT) in state 94
+WARNING: reduce/reduce conflict in state 95 resolved using rule (T -> VALOR_FLOAT)
+WARNING: rejected rule (A -> ID_COMPLETO ASIGNACION VALOR_FLOAT) in state 95
+WARNING: Rule (A -> ID_COMPLETO ASIGNACION ID_COMPLETO) is never reduced
+WARNING: Rule (A -> ID_COMPLETO ASIGNACION VALOR_INT) is never reduced
+WARNING: Rule (A -> ID_COMPLETO ASIGNACION VALOR_FLOAT) is never reduced
