@@ -3,23 +3,16 @@
 # Fecha: 25 de abril de 2022
 # Tercera entrega de proyecto
 
-### NOTAS ###
+####################         NOTAS         ####################
 # 1. Siempre marca error en la última línea
 # R: 
-# 2. Aun no esta terminado variables dimensionadas
-# R: 
-# 3. Como manejar los prints/inputs
+# 2. Como manejar la impresión de texto en strings?
 # R: 
 
-from lzma import MODE_NORMAL
-from tkinter import E
-from numpy import char
 import ply.lex as lex
 import ply.yacc as yacc
-import sys
 
-###         TOKENS Y PALABRAS RESERVADAS         ###
-
+####################         TOKENS Y PALABRAS RESERVADAS         ####################
 # Definicion de palabras reservadas
 reserved = {
     'begin' : 'BEGIN',
@@ -31,15 +24,12 @@ reserved = {
     'while' : 'WHILE',
     'do' : 'DO',
     'for' : 'FOR',
-
     'function' : 'FUNCTION',
     'procedure' : 'PROCEDURE',
     'return' : 'RETURN',
     'main' : 'MAIN',
-
     'print' : 'PRINT',
     'input' : 'INPUT',
-
     'int' : 'INT',
     'float' : 'FLOAT',
 }
@@ -94,7 +84,7 @@ def t_VALOR_INT(t):
     return t
 
 def t_VALOR_FLOAT(t):
-    r'\d+'
+    r'\d+.d+'
     t.value = float(t.value)    
     return t
 
@@ -124,7 +114,22 @@ def t_error(t):
 # Construir el lexer
 lexer = lex.lex()
 
-###         GRAMATICA         ###
+####################         TABLA DE SÍMBOLOS         ####################
+# Funcion para agregar IDs a la tabla de símbolos
+def agregarATablaSimbolos(p, id_index, type_index):
+    global index_tabla              # Variable global para el índice de la tabla de símbolos
+    global tabla_simbolos           # Variable global para la tabla de símbolos
+    identificador = p[id_index]     # Se extrae el identificador
+    tipo = p[type_index]            # Se extrae el tipo
+    if identificador in tabla_simbolos:
+        print("Error[line]: ID -->", identificador, "no definido")
+    else:
+        tabla_simbolos[identificador] = [tipo, index_tabla] # Se agrega el identificador y su tipo a la tabla de símbolos
+        index_tabla += 1                                    # Se incrementa el índice de la tabla de símbolos
+
+index_tabla = 0     # Variable para el índice de la tabla de símbolos
+tabla_simbolos = {} # Lista para guardar nombres de variables y funciones/procedimientos
+####################         GRAMATICA         ####################
 
 # UTILIZANDO SINTAXIS SENCILLA
 # Vacío
@@ -175,10 +180,17 @@ def p_T(p):
          | ID_COMPLETO
          | VALOR_INT
          | VALOR_FLOAT'''
+    # verificar que, si es un ID (no es nada de lo demas), este exista en la tabla de simbolos
+    if p[1] != 'PARENTESIS_IZQUIERDO':
+        if str(p[1])[0] >= 'a' and str(p[1])[0] <= 'z':     # Asegurarse de que no sea un numero
+            if p[1] not in tabla_simbolos:
+                print("Error[line]: ID -->", p[1], "no definido")
 
 # Nombre de variables
 def p_ID_COMPLETO(p):
     '''ID_COMPLETO : ID RANGOS'''
+    p[0] = p[1]             # Linea para identificar y retornar el ID de la variable/función/procedimiento
+
 def p_RANGOS(p):
     '''RANGOS : empty
               | CORCHETE_IZQUIERDO VALOR_INT CORCHETE_DERECHO RANGOS'''
@@ -187,9 +199,12 @@ def p_RANGOS(p):
 def p_V(p):
     '''V : TIPO DOS_PUNTOS A PUNTO_COMA
          | TIPO DOS_PUNTOS ID_COMPLETO PUNTO_COMA'''
+    # agregarATablaSimbolos(p, id_index, type_index, identificador, tipo)
+    agregarATablaSimbolos(p, 3, 1)
 def p_TIPO(p):
     '''TIPO : INT
             | FLOAT'''
+    p[0] = p[1]             # Linea para identificar y retornar el tipo de la variable
 def p_V_M(p):
     '''V_M : empty
            | V V_M'''
@@ -202,6 +217,16 @@ def p_A(p):
          | ID_COMPLETO ASIGNACION ID_COMPLETO
          | ID_COMPLETO ASIGNACION ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
          | ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO''' # Penúltima línea para el llamado de funciones con valor de retorno
+    # Verificar que la primer variable (a la que se le actualizara su valor) exista
+    if not (p[1] in tabla_simbolos):
+        print("Error[line]: ID -->", p[1], "no definido")
+    # Si hay otro ID despues de la asignacion, verificar que este tambien exista
+    for i in range(2, len(p)):
+        if p[i] == '=>':
+            if str(p[i+1])[0] >= 'a' and str(p[i+1])[0] <= 'z':     # Asegurarse de que pueda ser un ID
+                if not (p[i+1] in reserved):                           # Asegurarse de que no sea una palabra reservada
+                    if p[i+1] not in tabla_simbolos:                        # Verificar si el ID no existe
+                        print("Error[line]: ID -->", p[i+1], "no definido")
 
 # Estatutos
 def p_EST(p):
@@ -214,6 +239,11 @@ def p_EST(p):
            | PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
            | INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
            | ID PARENTESIS_IZQUIERDO  PARENTESIS_DERECHO PUNTO_COMA EST'''          # TODO: Corregir el PRINT, no me deja imprimir texto
+    # Verificar que la variable/función/procedimiento exista
+    if not (p[1] in reserved):
+        if p[1] != None:
+            if not (p[1] in tabla_simbolos):
+                print("Error[line]: ID -->", p[1], "no definido")
 
 # Ciclos
 def p_LOOP(p):      # TODO: Tiene problemas para identificar el cierre con el end loop
@@ -239,15 +269,21 @@ def p_ELSIF_(p):
 def p_P(p):
     '''P : PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
          | PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA'''
+    # agregarATablaSimbolos(p, id_index, type_index)
+    agregarATablaSimbolos(p, 2, 1)
 
 # Funciones
 def p_F(p):
     '''F : TIPO ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN ID PUNTO_COMA END FUNCTION PUNTO_COMA'''
+    # agregarATablaSimbolos(p, id_index, type_index)
+    agregarATablaSimbolos(p, 2, 1)
 
 # Procedimiento principal
 def p_MP(p):
     '''MP : PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
           | PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA'''
+    # agregarATablaSimbolos(p, id_index, type_index)
+    agregarATablaSimbolos(p, 2, 1)
 
 # Programa
 def p_PROGRAMA(p):
@@ -268,51 +304,42 @@ def p_error(p):
 parser = yacc.yacc()
 
 
-
-
-
-
-
-
-
-
-
 inputString = '''
 procedure main():
     int : num1[3][2];
+    float : num2;
 begin;
     num1 => suma();
     num2 => 3;
-    do:
-        i => i + 1;
-        print("");
-    while i < 10;
-    end loop;
 end procedure;
-'''
-"""
+
 procedure suma():
-	int : num1;
-    int : num2;
     int : res;	
 begin;
     res[2] => num1 + num2;
+    a => asdfffff();
+    emerico();
+    print("");
+    input();
+end procedure;
+
+procedure resta():
+    int : asdf;	
+begin;
+    res[2] => num1 + num2;
     a => b & c;
+    do:
+        i => z + 1;
+        print("");
+    while i < 10;
+    end loop;
     print("");
     input();
 end procedure;
 '''
-"""
 
 parser.parse(inputString)
 # Give the lexer some input
 lexer.input(inputString)
 
-"""
-# Tokenize
-while True:
-    tok = lexer.token()
-    if not tok: 
-        break      # No more input
-    print(tok) 
-"""
+print(tabla_simbolos)

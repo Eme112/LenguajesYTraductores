@@ -1,0 +1,26 @@
+inputString = '''
+procedure main():
+    int : num1[3][2];
+begin;
+    num1 => suma();
+    num2 => 3;
+    do:
+        i => i + 1;
+        print("");
+    while i < 10;
+    end loop;
+end procedure;
+'''
+"""
+procedure suma():
+	int : num1;
+    int : num2;
+    int : res;	
+begin;
+    res[2] => num1 + num2;
+    a => b & c;
+    print("");
+    input();
+end procedure;
+'''
+"""
