@@ -141,7 +141,8 @@ tabla_simbolos = {} # Lista para guardar nombres de variables y funciones/proced
 stack_operandos = []
 cuadruplos = []
 cuadruplo_actual = 0
-lista_temporales = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12', 'T13', 'T14', 'T15', 'T16', 'T17', 'T18', 'T19', 'T20', 'T21', 'T22', 'T23', 'T24', 'T25']
+lista_temporales = ['T25', 'T24', 'T23', 'T22', 'T21', 'T20', 'T19', 'T18', 'T17', 'T16', 'T15', 'T14', 'T13', 'T12', 'T11', 'T10', 'T9', 'T8', 'T7', 'T6', 'T5', 'T4', 'T3', 'T2', 'T1']
+const_lista_temporales = ['T25', 'T24', 'T23', 'T22', 'T21', 'T20', 'T19', 'T18', 'T17', 'T16', 'T15', 'T14', 'T13', 'T12', 'T11', 'T10', 'T9', 'T8', 'T7', 'T6', 'T5', 'T4', 'T3', 'T2', 'T1']
 jerarquia4 = ['<', '>', '<=', '>=', '==', '\'=']
 jerarquia3 = ['|', '+', '-']
 jerarquia2 = ['&', '*', '/', '%']
@@ -150,9 +151,14 @@ jerarquia1 = ['\'']
 def actualizarListas(simbolo):
     op2 = stack_operandos.pop()             # Obtener operando 2
     op1 = stack_operandos.pop()             # Obtener operando 1
+    if op1 in const_lista_temporales:
+        lista_temporales.append(op1)
+    if op2 in const_lista_temporales:
+        lista_temporales.append(op2)
     res = lista_temporales.pop()            # Obtener Temp que almacena resultado
     stack_operandos.append(res)             # Añadir Temp al stack de operandos
     guardarCuadruplo(simbolo, op1, op2, res)
+    
 
 def guardarCuadruplo(operador, op1, op2, res):
     global cuadruplos
@@ -163,7 +169,7 @@ def guardarCuadruplo(operador, op1, op2, res):
 
 def reiniciarListaTemporales():
     global lista_temporales
-    lista_temporales = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12', 'T13', 'T14', 'T15', 'T16', 'T17', 'T18', 'T19', 'T20', 'T21', 'T22', 'T23', 'T24', 'T25']
+    lista_temporales = ['T25', 'T24', 'T23', 'T22', 'T21', 'T20', 'T19', 'T18', 'T17', 'T16', 'T15', 'T14', 'T13', 'T12', 'T11', 'T10', 'T9', 'T8', 'T7', 'T6', 'T5', 'T4', 'T3', 'T2', 'T1']
 
 
 ####################         GRAMATICA         ####################
@@ -330,14 +336,14 @@ def p_A(p):
 # Estatutos
 def p_EST(p):
     '''EST : empty
-           | LOOP_ END LOOP PUNTO_COMA EST
-           | IF_ END IF PUNTO_COMA EST
+           | LOOP_ EST
+           | IF_ EST
            | A PUNTO_COMA EST
            | PROCEDURE PUNTO_COMA EST
            | FUNCTION PUNTO_COMA EST
            | PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
            | INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
-           | ID PARENTESIS_IZQUIERDO  PARENTESIS_DERECHO PUNTO_COMA EST'''          # TODO: Corregir el PRINT, no me deja imprimir texto
+           | ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST'''          # TODO: Corregir el PRINT, no me deja imprimir texto
     # Verificar que la variable/función/procedimiento exista
     if not (p[1] in reserved):
         if p[1] != None:
@@ -350,11 +356,11 @@ def p_LOOP(p):      # TODO: Tiene problemas para identificar el cierre con el en
              | WHILE_
              | FOR_'''
 def p_DO_WHILE(p):
-    '''DO_WHILE : DO DOS_PUNTOS EST WHILE E PUNTO_COMA'''
+    '''DO_WHILE : DO WHILE E DOS_PUNTOS EST END LOOP PUNTO_COMA'''
 def p_WHILE_(p):    
-    '''WHILE_ : WHILE E DOS_PUNTOS EST'''
+    '''WHILE_ : WHILE E DOS_PUNTOS EST END LOOP PUNTO_COMA'''
 def p_FOR_(p):      # TODO: Marca error de sintaxis el for
-    '''FOR_ : FOR EST E EST DOS_PUNTOS EST'''
+    '''FOR_ : FOR A PUNTO_COMA E PUNTO_COMA A DOS_PUNTOS EST END LOOP PUNTO_COMA'''
 
 # If
 def p_IF_(p):
@@ -362,7 +368,7 @@ def p_IF_(p):
 def p_ELSIF_(p):
     '''ELSIF_ : END IF PUNTO_COMA
               | ELSE DOS_PUNTOS EST END IF PUNTO_COMA
-              | ELSIF DOS_PUNTOS E EST ELSIF_'''
+              | ELSIF E DOS_PUNTOS EST ELSIF_'''
 
 # Procedimientos
 def p_P(p):
@@ -410,7 +416,7 @@ parser = yacc.yacc()
 
 # Abrir y seleccionar archivo para texto de entrada
 try:
-    fp = open("programaPrueba2.txt", "r")
+    fp = open("programaPrueba3.txt", "r")
     inputString = fp.read()
     fp.close()
 except FileNotFoundError:
