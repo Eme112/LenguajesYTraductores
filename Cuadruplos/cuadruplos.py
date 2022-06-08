@@ -12,6 +12,8 @@
 # 4. Problemas para imprimir la linea al tener un error en la tabla de simbolos
 # R: 
 
+# Quitar fors y añadir los temporales a la pila de operandos
+
 from inspect import stack
 from turtle import st
 import ply.lex as lex
@@ -145,12 +147,23 @@ jerarquia3 = ['|', '+', '-']
 jerarquia2 = ['&', '*', '/', '%']
 jerarquia1 = ['\'']
 
+def actualizarListas(simbolo):
+    op2 = stack_operandos.pop()             # Obtener operando 2
+    op1 = stack_operandos.pop()             # Obtener operando 1
+    res = lista_temporales.pop()            # Obtener Temp que almacena resultado
+    stack_operandos.append(res)             # Añadir Temp al stack de operandos
+    guardarCuadruplo(simbolo, op1, op2, res)
+
 def guardarCuadruplo(operador, op1, op2, res):
     global cuadruplos
     global cuadruplo_actual
     cuadruplo_actual += 1
     cuadruplos.append([operador, op1, op2, res])
     print("Cuadruplo añadido -->", cuadruplo_actual, ": [", operador, op1, op2, res, "]")
+
+def reiniciarListaTemporales():
+    global lista_temporales
+    lista_temporales = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12', 'T13', 'T14', 'T15', 'T16', 'T17', 'T18', 'T19', 'T20', 'T21', 'T22', 'T23', 'T24', 'T25']
 
 
 ####################         GRAMATICA         ####################
@@ -163,68 +176,80 @@ def p_empty(p):
   '''
   pass
 
-# Comparadores
-def p_C(p):
-    '''C : MENOR
-         | MAYOR
-         | MENOR_IGUAL
-         | MAYOR_IGUAL
-         | IGUAL
-         | DIFERENTE'''
-
 # Expresiones
 def p_E(p):
     '''E : E2
-         | E2 C E2'''
-    # Revisar si hay alguna comparacion en la expresion y agregar cuadruplo
-    for i in p:
-        if i in jerarquia4:
-            op2 = stack_operandos.pop()
-            op1 = stack_operandos.pop()
-            res = lista_temporales.pop()
-            guardarCuadruplo(i, op1, op2, res)
-            break
+         | E2 MENOR E2 AUX_MENOR
+         | E2 MAYOR E2 AUX_MAYOR
+         | E2 MENOR_IGUAL E2 AUX_MENOR_IGUAL
+         | E2 MAYOR_IGUAL E2 AUX_MAYOR_IGUAL
+         | E2 IGUAL E2 AUX_IGUAL
+         | E2 DIFERENTE E2 AUX_DIFERENTE'''
+def p_AUX_MENOR(p):
+    '''AUX_MENOR : empty'''
+    actualizarListas('<')
+def p_AUX_MAYOR(p):
+    '''AUX_MAYOR : empty'''
+    actualizarListas('>')
+def p_AUX_MENOR_IGUAL(p):
+    '''AUX_MENOR_IGUAL : empty'''
+    actualizarListas('<=')
+def p_AUX_MAYOR_IGUAL(p):
+    '''AUX_MAYOR_IGUAL : empty'''
+    actualizarListas('>=')
+def p_AUX_IGUAL(p):
+    '''AUX_IGUAL : empty'''
+    actualizarListas('==')
+def p_AUX_DIFERENTE(p):
+    '''AUX_DIFERENTE : empty'''
+    actualizarListas('\'=')
             
 # Expresiones 2
 def p_E2(p):
     '''E2 : E3
-          | E2 OR E3
-          | E2 MAS E3
-          | E2 MENOS E3'''
-    # Revisar si hay algun OR, MAS o MENOS en la expresion y agregar cuadruplo
-    for i in p:
-        if i in jerarquia3:
-            op1 = stack_operandos.pop()
-            res = lista_temporales.pop()
-            guardarCuadruplo(i, op1, None, res)
-            break
+          | E2 OR E3 AUX_OR
+          | E2 MAS E3 AUX_MAS
+          | E2 MENOS E3 AUX_MENOS'''    
+def p_AUX_OR(p):
+    '''AUX_OR : empty'''
+    actualizarListas('|')
+def p_AUX_MAS(p):
+    '''AUX_MAS : empty'''
+    actualizarListas('+')
+def p_AUX_MENOS(p):
+    '''AUX_MENOS : empty'''
+    actualizarListas('-')
 
 # Expresiones 3
 def p_E3(p):
     '''E3 : E4
-          | E3 AND E4
-          | E3 POR E4
-          | E3 ENTRE E4
-          | E3 MODULO E4'''
-    # Revisar si hay algun AND, POR, ENTRE o MODULO en la expresion y agregar cuadruplo
-    for i in p:
-        if i in jerarquia2:
-            op1 = stack_operandos.pop()
-            res = lista_temporales.pop()
-            guardarCuadruplo(i, op1, None, res)
-            break
+          | E3 AND E4 AUX_AND
+          | E3 POR E4 AUX_POR
+          | E3 ENTRE E4 AUX_ENTRE
+          | E3 MODULO E4 AUX_MODULO'''
+def p_AUX_AND(p):
+    '''AUX_AND : empty'''
+    actualizarListas('&')
+def p_AUX_POR(p):
+    '''AUX_POR : empty'''
+    actualizarListas('*')
+def p_AUX_ENTRE(p):
+    '''AUX_ENTRE : empty'''
+    actualizarListas('/')
+def p_AUX_MODULO(p):
+    '''AUX_MODULO : empty'''
+    actualizarListas('%')
 
 # Expresiones 4
 def p_E4(p):
     '''E4 : T
-          | NOT T'''
-    # Revisar si hay algun NOT en la expresion y agregar cuadruplo
-    for i in p:
-        if i in jerarquia1:
-            op1 = stack_operandos.pop()
-            res = lista_temporales.pop()
-            guardarCuadruplo(i, op1, None, res)
-            break
+          | NOT T AUX_NOT'''
+def p_AUX_NOT(p):
+    '''AUX_NOT : empty'''
+    op1 = stack_operandos.pop()             # Obtener operando 1
+    res = lista_temporales.pop()            # Obtener Temp que almacena resultado
+    stack_operandos.append(res)             # Añadir Temp al stack de operandos
+    guardarCuadruplo('\'', op1, None, res)
 
 # Terminos
 def p_T(p):
@@ -279,7 +304,7 @@ def p_A(p):
          | ID_COMPLETO ASIGNACION INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO''' # Penúltima línea para el llamado de funciones con valor de retorno
     # Verificar que la primer variable (a la que se le actualizara su valor) exista
     if not (p[1] in tabla_simbolos):
-        print("Error[linea]: ID -->", p[1], "<-- definido con anterioridad")
+        print("Error[linea]: ID -->", p[1], "<-- no ha sido definido con anterioridad")
     # Si ya existe, añadir a la pila de operandos
     else:
         stack_operandos.append(p[1])
@@ -295,8 +320,12 @@ def p_A(p):
         stack_operandos.append(p[1])
     # Cuadruplos
     op1 = stack_operandos.pop()
+    op2 = stack_operandos.pop()
     res = lista_temporales.pop()
-    guardarCuadruplo('=>', op1, None, res)
+    guardarCuadruplo('=>', op1, op2, res)
+    print("")
+    reiniciarListaTemporales()
+
 
 # Estatutos
 def p_EST(p):
@@ -381,7 +410,7 @@ parser = yacc.yacc()
 
 # Abrir y seleccionar archivo para texto de entrada
 try:
-    fp = open("programaPrueba1.txt", "r")
+    fp = open("programaPrueba2.txt", "r")
     inputString = fp.read()
     fp.close()
 except FileNotFoundError:

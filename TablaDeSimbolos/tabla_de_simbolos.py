@@ -311,6 +311,7 @@ start = 'PROGRAMA'
 def p_error(p):
     print("Syntax error in input!, line: %i" % p.lineno)
 
+print("\n\n")
 parser = yacc.yacc()
 
 # Abrir y seleccionar archivo para texto de entrada
@@ -325,4 +326,4 @@ parser.parse(inputString)
 # Give the lexer some input
 lexer.input(inputString)
 
-print("\n\nTabla de simbolos: \n", tabla_simbolos)
+print("\n\nTabla de simbolos: \n", tabla_simbolos, "\n\n")
