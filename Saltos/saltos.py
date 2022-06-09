@@ -11,6 +11,9 @@
 # R:
 # 4. Problemas para imprimir la linea al tener un error en la tabla de simbolos
 # R: 
+# 5. El programa indica que se cicla la gramática del WHILE, aún no sé por qué
+# R:
+# 6. Revisar pruebas con ciclos e ifs mixtos, ya que el stack de cuadruplos pendientes se vacia antes de lo necesario (creo que por la logica dentro del AUX_ENDIF)
 
 # Quitar fors y añadir los temporales a la pila de operandos
 
@@ -148,17 +151,26 @@ jerarquia3 = ['|', '+', '-']
 jerarquia2 = ['&', '*', '/', '%']
 jerarquia1 = ['\'']
 
-def actualizarListas(simbolo):
-    op2 = stack_operandos.pop()             # Obtener operando 2
-    op1 = stack_operandos.pop()             # Obtener operando 1
-    if op1 in const_lista_temporales:
-        lista_temporales.append(op1)
-    if op2 in const_lista_temporales:
-        lista_temporales.append(op2)
-    res = lista_temporales.pop()            # Obtener Temp que almacena resultado
-    stack_operandos.append(res)             # Añadir Temp al stack de operandos
-    guardarCuadruplo(simbolo, op1, op2, res)
-    
+def actualizarListaCuadruplos(simbolo, numOperandos):
+    if numOperandos == 0:
+        res = lista_temporales.pop()            # Obtener Temp que almacena resultado
+        stack_operandos.append(res)             # Añadir Temp al stack de operandos
+        guardarCuadruplo('\'', op1, None, res)
+    elif numOperandos == 1:
+        op1 = stack_operandos.pop()             # Obtener operando 1
+        res = lista_temporales.pop()            # Obtener Temp que almacena resultado
+        stack_operandos.append(res)             # Añadir Temp al stack de operandos
+        guardarCuadruplo('\'', op1, None, res)
+    elif numOperandos == 2:
+        op2 = stack_operandos.pop()             # Obtener operando 2
+        op1 = stack_operandos.pop()             # Obtener operando 1
+        if op1 in const_lista_temporales:
+            lista_temporales.append(op1)
+        if op2 in const_lista_temporales:
+            lista_temporales.append(op2)
+        res = lista_temporales.pop()            # Obtener Temp que almacena resultado
+        stack_operandos.append(res)             # Añadir Temp al stack de operandos
+        guardarCuadruplo(simbolo, op1, op2, res)
 
 def guardarCuadruplo(operador, op1, op2, res):
     global cuadruplos
@@ -167,10 +179,18 @@ def guardarCuadruplo(operador, op1, op2, res):
     cuadruplos.append([operador, op1, op2, res])
     print("Cuadruplo añadido -->", cuadruplo_actual, ": [", operador, op1, op2, res, "]")
 
-def reiniciarListaTemporales():
-    global lista_temporales
-    lista_temporales = ['T25', 'T24', 'T23', 'T22', 'T21', 'T20', 'T19', 'T18', 'T17', 'T16', 'T15', 'T14', 'T13', 'T12', 'T11', 'T10', 'T9', 'T8', 'T7', 'T6', 'T5', 'T4', 'T3', 'T2', 'T1']
 
+####################         SALTOS         ####################
+
+pila_saltos = []
+pila_cuadruplos_pendientes = []
+
+def agregarSaltoCuadruplo(saltoCondicional):
+    if saltoCondicional:
+        op1 = stack_operandos.pop()             # Obtener expr booleana
+        guardarCuadruplo("GotoF", op1, None, None)
+    else:
+        guardarCuadruplo("Goto", None, None, None)
 
 ####################         GRAMATICA         ####################
 
@@ -193,22 +213,22 @@ def p_E(p):
          | E2 DIFERENTE E2 AUX_DIFERENTE'''
 def p_AUX_MENOR(p):
     '''AUX_MENOR : empty'''
-    actualizarListas('<')
+    actualizarListaCuadruplos('<', 2)
 def p_AUX_MAYOR(p):
     '''AUX_MAYOR : empty'''
-    actualizarListas('>')
+    actualizarListaCuadruplos('>', 2)
 def p_AUX_MENOR_IGUAL(p):
     '''AUX_MENOR_IGUAL : empty'''
-    actualizarListas('<=')
+    actualizarListaCuadruplos('<=', 2)
 def p_AUX_MAYOR_IGUAL(p):
     '''AUX_MAYOR_IGUAL : empty'''
-    actualizarListas('>=')
+    actualizarListaCuadruplos('>=', 2)
 def p_AUX_IGUAL(p):
     '''AUX_IGUAL : empty'''
-    actualizarListas('==')
+    actualizarListaCuadruplos('==', 2)
 def p_AUX_DIFERENTE(p):
     '''AUX_DIFERENTE : empty'''
-    actualizarListas('\'=')
+    actualizarListaCuadruplos('\'=', 2)
             
 # Expresiones 2
 def p_E2(p):
@@ -218,13 +238,13 @@ def p_E2(p):
           | E2 MENOS E3 AUX_MENOS'''    
 def p_AUX_OR(p):
     '''AUX_OR : empty'''
-    actualizarListas('|')
+    actualizarListaCuadruplos('|', 2)
 def p_AUX_MAS(p):
     '''AUX_MAS : empty'''
-    actualizarListas('+')
+    actualizarListaCuadruplos('+', 2)
 def p_AUX_MENOS(p):
     '''AUX_MENOS : empty'''
-    actualizarListas('-')
+    actualizarListaCuadruplos('-', 2)
 
 # Expresiones 3
 def p_E3(p):
@@ -235,16 +255,16 @@ def p_E3(p):
           | E3 MODULO E4 AUX_MODULO'''
 def p_AUX_AND(p):
     '''AUX_AND : empty'''
-    actualizarListas('&')
+    actualizarListaCuadruplos('&', 2)
 def p_AUX_POR(p):
     '''AUX_POR : empty'''
-    actualizarListas('*')
+    actualizarListaCuadruplos('*', 2)
 def p_AUX_ENTRE(p):
     '''AUX_ENTRE : empty'''
-    actualizarListas('/')
+    actualizarListaCuadruplos('/', 2)
 def p_AUX_MODULO(p):
     '''AUX_MODULO : empty'''
-    actualizarListas('%')
+    actualizarListaCuadruplos('%', 2)
 
 # Expresiones 4
 def p_E4(p):
@@ -252,10 +272,7 @@ def p_E4(p):
           | NOT T AUX_NOT'''
 def p_AUX_NOT(p):
     '''AUX_NOT : empty'''
-    op1 = stack_operandos.pop()             # Obtener operando 1
-    res = lista_temporales.pop()            # Obtener Temp que almacena resultado
-    stack_operandos.append(res)             # Añadir Temp al stack de operandos
-    guardarCuadruplo('\'', op1, None, res)
+    actualizarListaCuadruplos('\'', 1)
 
 # Terminos
 def p_T(p):
@@ -328,9 +345,6 @@ def p_A(p):
     res = stack_operandos.pop()
     op1 = stack_operandos.pop()
     guardarCuadruplo('=>', op1, None, res)
-    print("")
-    reiniciarListaTemporales()
-
 
 # Estatutos
 def p_EST(p):
@@ -354,20 +368,65 @@ def p_LOOP(p):      # TODO: Tiene problemas para identificar el cierre con el en
     '''LOOP_ : DO_WHILE
              | WHILE_
              | FOR_'''
+
 def p_DO_WHILE(p):
     '''DO_WHILE : DO WHILE E DOS_PUNTOS EST END LOOP PUNTO_COMA'''
+
 def p_WHILE_(p):    
     '''WHILE_ : WHILE E DOS_PUNTOS EST END LOOP PUNTO_COMA'''
+    #'''WHILE_ : WHILE E AUX_WHILE DOS_PUNTOS EST END LOOP PUNTO_COMA AUX_ENDWHILE'''
+def AUX_WHILE(p):
+    '''AUX_WHILE : empty'''
+    agregarSaltoCuadruplo(True)
+    pila_saltos.append(cuadruplo_actual)
+    pila_cuadruplos_pendientes.append(cuadruplo_actual)
+def AUX_ENDWHILE(p):
+    '''AUX_ENDWHILE : empty'''
+    agregarSaltoCuadruplo(False)
+    cuadruplos[pila_cuadruplos_pendientes.pop(0)-1][3] = cuadruplo_actual+1
+    cuadruplos[cuadruplo_actual-1][3] = pila_saltos.pop()
+    
 def p_FOR_(p):      # TODO: Marca error de sintaxis el for
-    '''FOR_ : FOR A PUNTO_COMA E PUNTO_COMA A DOS_PUNTOS EST END LOOP PUNTO_COMA'''
+    '''FOR_ : FOR A PUNTO_COMA E AUX_FOR1 PUNTO_COMA A DOS_PUNTOS EST END LOOP PUNTO_COMA AUX_ENDFOR'''
+def p_AUX_FOR1(p):
+    '''AUX_FOR1 : empty'''
+    agregarSaltoCuadruplo(True)
+    pila_cuadruplos_pendientes.append(cuadruplo_actual)
+    pila_saltos.append(cuadruplo_actual+1)
+def p_AUX_ENDFOR(p):
+    '''AUX_ENDFOR : empty'''
+    agregarSaltoCuadruplo(False)
+    cuadruplos[pila_cuadruplos_pendientes.pop(0)-1][3] = cuadruplo_actual+1
+    cuadruplos[cuadruplo_actual-1][3] = pila_saltos.pop()
 
 # If
 def p_IF_(p):
-    '''IF_ : IF E DOS_PUNTOS EST ELSIF_'''
+    '''IF_ : IF E AUX_IF DOS_PUNTOS EST ELSIF_'''
 def p_ELSIF_(p):
-    '''ELSIF_ : END IF PUNTO_COMA
-              | ELSE DOS_PUNTOS EST END IF PUNTO_COMA
-              | ELSIF E DOS_PUNTOS EST ELSIF_'''
+    '''ELSIF_ : END IF AUX_ENDIF PUNTO_COMA
+              | ELSE AUX_ELSE DOS_PUNTOS EST END IF AUX_ENDIF PUNTO_COMA
+              | ELSIF E AUX_ELSIF DOS_PUNTOS EST ELSIF_'''
+def p_AUX_IF(P):
+    '''AUX_IF : empty'''
+    agregarSaltoCuadruplo(True)
+    pila_cuadruplos_pendientes.append(cuadruplo_actual)
+def p_AUX_ELSIF(p):
+    '''AUX_ELSIF : empty'''
+    agregarSaltoCuadruplo(True)
+    pila_saltos.append(cuadruplo_actual)
+    pila_cuadruplos_pendientes.append(cuadruplo_actual)
+def p_AUX_ELSE(p):
+    '''AUX_ELSE : empty'''
+    agregarSaltoCuadruplo(False)
+    pila_saltos.append(cuadruplo_actual+1)
+    pila_cuadruplos_pendientes.append(cuadruplo_actual)
+def p_AUX_ENDIF(p):
+    '''AUX_ENDIF : empty'''
+    pila_saltos.append(cuadruplo_actual+1)
+    print(pila_saltos)
+    while len(pila_cuadruplos_pendientes) > 0:
+        cuadruplos[pila_cuadruplos_pendientes.pop(0)-1][3] = pila_saltos.pop(0)
+
 
 # Procedimientos
 def p_P(p):
@@ -415,7 +474,7 @@ parser = yacc.yacc()
 
 # Abrir y seleccionar archivo para texto de entrada
 try:
-    fp = open("programaPrueba3.txt", "r")
+    fp = open("PruebaMixto.txt", "r")
     inputString = fp.read()
     fp.close()
 except FileNotFoundError:
@@ -425,6 +484,7 @@ parser.parse(inputString)
 # Give the lexer some input
 lexer.input(inputString)
 
-#print("\nTabla de simbolos:\n",tabla_simbolos)
-print("\nStack de operandos:\n", stack_operandos)
-print("\nLista de cuádruplos:\n", cuadruplos)
+cont = 1
+for i in cuadruplos:
+    print(cont, i)
+    cont+=1

@@ -1,0 +1,20 @@
+procedure main():
+    int : num1;
+    float : num2;
+    int : a;
+    int : b;
+    int : c;
+    int : d;
+    int : e;
+    int : f;
+    int : g;
+    int : h;
+begin;
+    if a > b:
+        h => d*e*f+3000-b;
+    elsif b >= a:
+        h => 1;
+    else:
+        h => 100*b;
+    end if;
+end procedure;
