@@ -3,15 +3,9 @@
 # Nombre del Lenguaje: MP4
 
 ####################         NOTAS         ####################
-# 1. Siempre marca error en la última línea (cuando hay mas de un procedure) o al finalizar un loop
-# R: 
+# 1. Desarrollo de print/input
 # 2. Como manejar la impresión de texto en strings?
-# R: 
 # 3. No detecto valores float, me marca error de sintaxis
-# R:
-# 4. Problemas para imprimir la linea al tener un error en la tabla de simbolos
-# R: 
-# 6. Actualizar los cuadruplos de saltos de procedimientos y llamado
 
 import ply.lex as lex
 import ply.yacc as yacc
@@ -170,13 +164,13 @@ def guardarCuadruplo(operador, op1, op2, res):
     global cuadruplo_actual
     cuadruplo_actual += 1
     cuadruplos.append([operador, op1, op2, res])
-    print("Cuadruplo añadido -->", cuadruplo_actual, ": [", operador, op1, op2, res, "]")
+    # print("Cuadruplo añadido -->", cuadruplo_actual, ": [", operador, op1, op2, res, "]")
 
 
 ####################         SALTOS         ####################
 
 pila_saltos = []
-pila_cuadruplos_pendientes = []
+pila_saltos_procedimientos = []
 nivel = -1
 
 def agregarSaltoCuadruplo(saltoCondicional):
@@ -189,9 +183,11 @@ def agregarSaltoCuadruplo(saltoCondicional):
 ####################         EJECUCION         ####################
 
 inicio_ejecucion = 1
+pila_return = []
 
 def ejecucionCuadruplos():
     global inicio_ejecucion
+    global pila_return
     print("Inicio ejecucion", inicio_ejecucion)
     pc = inicio_ejecucion
     while pc <= len(cuadruplos):
@@ -258,6 +254,10 @@ def ejecucionCuadruplos():
             if op1 == 0:
                 pc = cuadruplo[3]
                 sumar1 = False
+        elif operacion == 'Return':
+            guardar_valor = False
+            pc = pila_return.pop()
+            sumar1 = False
 
         if sumar1:
             pc += 1
@@ -354,7 +354,6 @@ def p_AUX_NOT(p):
 # Terminos
 def p_T(p):
     '''T : PARENTESIS_IZQUIERDO E PARENTESIS_DERECHO
-         | FUNCTION
          | ID_COMPLETO
          | VALOR_INT
          | VALOR_FLOAT'''
@@ -423,22 +422,32 @@ def p_A(p):
     op1 = stack_operandos.pop()
     guardarCuadruplo('=>', op1, None, res)
 
+salto_procedimiento = False
 # Estatutos
 def p_EST(p):
     '''EST : empty
            | LOOP_ EST
            | IF_ EST
            | A PUNTO_COMA EST
-           | PROCEDURE PUNTO_COMA EST
-           | FUNCTION PUNTO_COMA EST
            | PRINT PARENTESIS_IZQUIERDO COMILLAS COMILLAS PARENTESIS_DERECHO PUNTO_COMA EST
            | INPUT PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST
-           | ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO PUNTO_COMA EST'''          # TODO: Corregir el PRINT, no me deja imprimir texto
+           | ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO AUX_PROC PUNTO_COMA EST'''          # TODO: Corregir el PRINT, no me deja imprimir texto
+    global salto_procedimiento 
     # Verificar que la variable/función/procedimiento exista
     if not (p[1] in reserved):
         if p[1] != None:
             if not (p[1] in tabla_simbolos):
                 print("Error[linea]: ID -->", p[1], "<-- no definido")
+            else:
+                if tabla_simbolos[p[1]][0] == 'procedure':
+                    cuadruplos[pila_saltos_procedimientos.pop()][3] = tabla_simbolos[p[1]][1]
+def p_AUX_PROC(p):
+    '''AUX_PROC : empty'''
+    global salto_procedimiento 
+    global pila_return
+    pila_saltos_procedimientos.append(cuadruplo_actual)
+    agregarSaltoCuadruplo(False)                            # Agregar salto hacia el procedimiento
+    pila_return.append(cuadruplo_actual+1)
 
 # Ciclos
 def p_LOOP(p):      # TODO: Tiene problemas para identificar el cierre con el end loop
@@ -498,7 +507,7 @@ def p_ELSIF_(p):
     '''ELSIF_ : END IF AUX_ENDIF PUNTO_COMA
               | ELSE AUX_ELSE DOS_PUNTOS EST AUX_SALIRIF END IF AUX_ENDIF PUNTO_COMA
               | ELSIF AUX_ELSIF E AUX_ELSIF2 DOS_PUNTOS EST AUX_SALIRIF ELSIF_'''
-def p_AUX_IF(P):
+def p_AUX_IF(p):
     '''AUX_IF : empty'''
     global nivel
     nivel += 2
@@ -538,13 +547,21 @@ def p_AUX_ENDIF(p):
 
 # Procedimientos
 def p_P(p):
-    '''P : PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
-         | PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA'''
+    '''P : PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS P_AUX V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA AUX_ENDPROC
+         | PROCEDURE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS P_AUX V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA AUX_ENDPROC'''
+    global ID_actual
     # Revisar si el ID ya existe
     if p[2] in tabla_simbolos:
         print("Error[linea]: ID -->", p[2], "<-- definido con anterioridad")
     # agregarATablaSimbolos(p, id_index, type_index)
     agregarATablaSimbolos(p, 2, 1)
+    tabla_simbolos[p[2]][1] = pila_saltos_procedimientos.pop()
+def p_P_AUX(p):
+    '''P_AUX : empty'''
+    pila_saltos_procedimientos.append(cuadruplo_actual+1)
+def p_AUX_ENDPROC(p):
+    '''AUX_ENDPROC : empty'''
+    guardarCuadruplo("Return", None, None, None)
 
 # Funciones
 def p_F(p):
@@ -561,19 +578,22 @@ def p_MP(p):
           | PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS MP_AUX V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA'''
     # agregarATablaSimbolos(p, id_index, type_index)
     agregarATablaSimbolos(p, 2, 1)
+    tabla_simbolos[p[2]][1] = pila_saltos_procedimientos.pop()
+    print("\n\tSINTAXIS CORRECTA!\n")
 def p_MP_AUX(p):
     '''MP_AUX : empty'''
     global inicio_ejecucion
-    inicio_ejecucion = cuadruplo_actual
+    inicio_ejecucion = cuadruplo_actual+1
+    pila_saltos_procedimientos.append(cuadruplo_actual+1)
 
-# Programa
+# ESTRUCTURA PRINCIPAL DE UN PROGRAMA EN MP4
 def p_PROGRAMA(p):
-    '''PROGRAMA : PROGRAMA_H MP'''
-    print("\n\tSINTAXIS CORRECTA!\n")
-def p_PROGRAMA_H(p):
-    '''PROGRAMA_H : empty
-                  | P PROGRAMA_H
-                  | F PROGRAMA_H '''
+    '''PROGRAMA : F PROGRAMA
+                | P PROGRAMA
+                | MP PROGRAMA
+                | empty'''
+
+# TE QUEDASTE AQUI, PROBAR SALTOS DE PROCEDIMIENTOS
 
 # Starter rule
 start = 'PROGRAMA'
@@ -586,7 +606,7 @@ parser = yacc.yacc()
 
 # Abrir y seleccionar archivo para texto de entrada
 try:
-    fp = open("PruebaFor.txt", "r")
+    fp = open("PruebaProcedimientos.txt", "r")
     inputString = fp.read()
     fp.close()
 except FileNotFoundError:
