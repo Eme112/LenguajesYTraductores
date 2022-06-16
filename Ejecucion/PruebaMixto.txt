@@ -10,15 +10,13 @@ procedure main():
     int : g;
     int : h;
 begin;
-    a => 1;
-    b => 2;
-
-    if a > b:
-        h => d*e*f+3000-b;
-    elsif b == a:
-        h => 1;
-    else:
-        h => 100*b;
-    end if;
-    a => 3;
+    for b=>1; b<10; b=>b+2:
+        if b==4:
+            a => c+d*e;
+        elsif b == 5:
+            a => 3;
+        else:
+            d => h;
+        end if;
+    end loop;
 end procedure;

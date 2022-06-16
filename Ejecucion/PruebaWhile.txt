@@ -10,13 +10,18 @@ procedure main():
     int : g;
     int : h;
 begin;
-    e => 5;
+    e => 0;
     b => 1;
-    while 0:
+    c => 0;
+    d => 0;
+
+    while e < 10:
         e => e+1;
         b => b*2;
+        if e < 5:
+            c => c+1;
+        else :
+            d => d+100;
+        end if;
     end loop;
-
-    a => 1;
-    c => 2;
 end procedure;

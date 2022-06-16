@@ -10,13 +10,14 @@ procedure main():
     int : g;
     int : h;
 begin;
-    e => 5;
-    b => 1;
-    while 0:
-        e => e+1;
-        b => b*2;
+a => 0;
+    for b=>1; b<10; b=>b+2:
+        while(a < 500):
+            if a < 10:
+                a => a+2;
+            else:
+                a => a*2;
+            end if;
+        end loop;
     end loop;
-
-    a => 1;
-    c => 2;
 end procedure;

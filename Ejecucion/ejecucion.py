@@ -11,14 +11,8 @@
 # R:
 # 4. Problemas para imprimir la linea al tener un error en la tabla de simbolos
 # R: 
-# 5. El programa indica que se cicla la gramática del WHILE, aún no sé por qué
-# R:
-# 6. Revisar pruebas con ciclos e ifs mixtos, ya que el stack de cuadruplos pendientes se vacia antes de lo necesario (creo que por la logica dentro del AUX_ENDIF)
+# 6. Actualizar los cuadruplos de saltos de procedimientos y llamado
 
-# Quitar fors y añadir los temporales a la pila de operandos
-
-from inspect import stack
-from turtle import st
 import ply.lex as lex
 import ply.yacc as yacc
 
@@ -123,20 +117,17 @@ lexer = lex.lex()
 
 ####################         TABLA DE SÍMBOLOS         ####################
 
+tabla_simbolos = {} # Lista para guardar nombres de variables y funciones/procedimientos
+
 # Funcion para agregar IDs a la tabla de símbolos
 def agregarATablaSimbolos(p, id_index, type_index):
-    global index_tabla              # Variable global para el índice de la tabla de símbolos
     global tabla_simbolos           # Variable global para la tabla de símbolos
     identificador = p[id_index]     # Se extrae el identificador
     tipo = p[type_index]            # Se extrae el tipo
     if identificador in tabla_simbolos:
         print("Error[linea]: ID -->", identificador, "<-- definido con anterioridad")
     else:
-        tabla_simbolos[identificador] = [tipo, index_tabla] # Se agrega el identificador y su tipo a la tabla de símbolos
-        index_tabla += 1                                    # Se incrementa el índice de la tabla de símbolos
-
-index_tabla = 0     # Variable para el índice de la tabla de símbolos
-tabla_simbolos = {} # Lista para guardar nombres de variables y funciones/procedimientos
+        tabla_simbolos[identificador] = [tipo, 0] # Se agrega el identificador y su tipo a la tabla de símbolos
 
 
 ####################         CUADRUPLOS         ####################
@@ -145,6 +136,8 @@ stack_operandos = []
 cuadruplos = []
 cuadruplo_actual = 0
 lista_temporales = ['T25', 'T24', 'T23', 'T22', 'T21', 'T20', 'T19', 'T18', 'T17', 'T16', 'T15', 'T14', 'T13', 'T12', 'T11', 'T10', 'T9', 'T8', 'T7', 'T6', 'T5', 'T4', 'T3', 'T2', 'T1']
+valores_temporales = [0]*25
+
 const_lista_temporales = ['T25', 'T24', 'T23', 'T22', 'T21', 'T20', 'T19', 'T18', 'T17', 'T16', 'T15', 'T14', 'T13', 'T12', 'T11', 'T10', 'T9', 'T8', 'T7', 'T6', 'T5', 'T4', 'T3', 'T2', 'T1']
 jerarquia4 = ['<', '>', '<=', '>=', '==', '\'=']
 jerarquia3 = ['|', '+', '-']
@@ -184,6 +177,7 @@ def guardarCuadruplo(operador, op1, op2, res):
 
 pila_saltos = []
 pila_cuadruplos_pendientes = []
+nivel = -1
 
 def agregarSaltoCuadruplo(saltoCondicional):
     if saltoCondicional:
@@ -191,6 +185,89 @@ def agregarSaltoCuadruplo(saltoCondicional):
         guardarCuadruplo("GotoF", op1, None, None)
     else:
         guardarCuadruplo("Goto", None, None, None)
+
+####################         EJECUCION         ####################
+
+inicio_ejecucion = 1
+
+def ejecucionCuadruplos():
+    global inicio_ejecucion
+    print("Inicio ejecucion", inicio_ejecucion)
+    pc = inicio_ejecucion
+    while pc <= len(cuadruplos):
+        sumar1 = True
+        guardar_valor = True
+        cuadruplo = cuadruplos[pc-1]
+        print("Ejecutando cuadruplo -->", pc, ": [", cuadruplo[0], cuadruplo[1], cuadruplo[2], cuadruplo[3], "]")
+        
+        operacion = cuadruplo[0]
+
+        if cuadruplo[1] in const_lista_temporales:
+            op1 = valores_temporales[const_lista_temporales.index(cuadruplo[1])]
+        elif cuadruplo[1] in tabla_simbolos:
+            op1 = tabla_simbolos[cuadruplo[1]][1]
+        else:
+            op1 = cuadruplo[1]
+
+        if cuadruplo[2] in const_lista_temporales:
+            op2 = valores_temporales[const_lista_temporales.index(cuadruplo[2])]
+        elif cuadruplo[2] in tabla_simbolos:
+            op2 = tabla_simbolos[cuadruplo[2]][1]
+        else:
+            op2 = cuadruplo[2]
+
+        if operacion == '=>':
+            valor = op1
+        elif operacion == '<':
+            valor = op1 < op2
+        elif operacion == '>':
+            valor = op1 > op2
+        elif operacion == '<=':
+            valor = op1 <= op2
+        elif operacion == '>=':
+            valor = op1 >= op2
+        elif operacion == '==':
+            valor = op1 == op2
+        elif operacion == '\'=':
+            valor = op1 != op2
+        elif operacion == '|':
+            valor = op1 or op2
+        elif operacion == '+':
+            valor = op1 + op2
+        elif operacion == '-':
+            valor = op1 - op2
+        elif operacion == '&':
+            valor = op1 and op2
+        elif operacion == '*':
+            valor = op1 * op2
+        elif operacion == '/':
+            valor = op1 / op2
+        elif operacion == '%':
+            valor = op1 % op2
+        elif operacion == '\'':
+            if op1 == 0:
+                valor = 1
+            else:
+                valor = 0
+        elif operacion == 'Goto':
+            pc = cuadruplo[3]
+            guardar_valor = False
+            sumar1 = False
+        elif operacion == 'GotoF':
+            guardar_valor = False
+            if op1 == 0:
+                pc = cuadruplo[3]
+                sumar1 = False
+
+        if sumar1:
+            pc += 1
+
+        if guardar_valor:
+            if cuadruplo[3] in const_lista_temporales:
+                valores_temporales[const_lista_temporales.index(cuadruplo[3])] = valor
+            else:
+                tabla_simbolos[cuadruplo[3]][1] = valor
+
 
 ####################         GRAMATICA         ####################
 
@@ -373,62 +450,90 @@ def p_DO_WHILE(p):
     '''DO_WHILE : DO WHILE E DOS_PUNTOS EST END LOOP PUNTO_COMA'''
 
 def p_WHILE_(p):    
-    '''WHILE_ : WHILE E DOS_PUNTOS EST END LOOP PUNTO_COMA'''
-    #'''WHILE_ : WHILE E AUX_WHILE DOS_PUNTOS EST END LOOP PUNTO_COMA AUX_ENDWHILE'''
-def AUX_WHILE(p):
-    '''AUX_WHILE : empty'''
+    '''WHILE_ : WHILE AUX_WHILE1 E AUX_WHILE2 DOS_PUNTOS EST END LOOP PUNTO_COMA AUX_ENDWHILE'''
+def p_AUX_WHILE1(p):
+    '''AUX_WHILE1 : empty'''
+    global nivel
+    nivel += 1
+    pila_saltos.append([])      # Agregamos nuevo nivel a la pila de saltos
+    pila_saltos[nivel].append(cuadruplo_actual+1)
+def p_AUX_WHILE2(p):
+    '''AUX_WHILE2 : empty'''
+    global nivel
     agregarSaltoCuadruplo(True)
-    pila_saltos.append(cuadruplo_actual)
-    pila_cuadruplos_pendientes.append(cuadruplo_actual)
-def AUX_ENDWHILE(p):
+    pila_saltos[nivel].append(cuadruplo_actual)
+def p_AUX_ENDWHILE(p):
     '''AUX_ENDWHILE : empty'''
+    global nivel
     agregarSaltoCuadruplo(False)
-    cuadruplos[pila_cuadruplos_pendientes.pop(0)-1][3] = cuadruplo_actual+1
-    cuadruplos[cuadruplo_actual-1][3] = pila_saltos.pop()
+    cuadruplos[pila_saltos[nivel].pop()-1][3] = cuadruplo_actual+1
+    cuadruplos[cuadruplo_actual-1][3] = pila_saltos[nivel].pop()
+    nivel -= 1
     
 def p_FOR_(p):      # TODO: Marca error de sintaxis el for
     '''FOR_ : FOR A PUNTO_COMA AUX_FOR1 E AUX_FOR2 PUNTO_COMA A DOS_PUNTOS EST END LOOP PUNTO_COMA AUX_ENDFOR'''
 def p_AUX_FOR1(p):
     '''AUX_FOR1 : empty'''
-    pila_saltos.append(cuadruplo_actual+1)
+    global nivel
+    nivel += 1
+    pila_saltos.append([])      # Agregamos nuevo nivel a la pila de saltos
+    pila_saltos[nivel].append(cuadruplo_actual+1)
 def p_AUX_FOR2(p):
     '''AUX_FOR2 : empty'''
+    global nivel
     agregarSaltoCuadruplo(True)
-    pila_cuadruplos_pendientes.append(cuadruplo_actual)
+    pila_saltos[nivel].append(cuadruplo_actual)
 def p_AUX_ENDFOR(p):
     '''AUX_ENDFOR : empty'''
+    global nivel
     agregarSaltoCuadruplo(False)
-    cuadruplos[pila_cuadruplos_pendientes.pop(0)-1][3] = cuadruplo_actual+1
-    cuadruplos[cuadruplo_actual-1][3] = pila_saltos.pop()
-
+    cuadruplos[pila_saltos[nivel].pop()-1][3] = cuadruplo_actual+1
+    cuadruplos[cuadruplo_actual-1][3] = pila_saltos[nivel].pop()
+    nivel -= 1
 
 # If
 def p_IF_(p):
-    '''IF_ : IF E AUX_IF DOS_PUNTOS EST ELSIF_'''
+    '''IF_ : IF E AUX_IF DOS_PUNTOS EST AUX_SALIRIF ELSIF_'''
 def p_ELSIF_(p):
     '''ELSIF_ : END IF AUX_ENDIF PUNTO_COMA
-              | ELSE AUX_ELSE DOS_PUNTOS EST END IF AUX_ENDIF PUNTO_COMA
-              | ELSIF E AUX_ELSIF DOS_PUNTOS EST ELSIF_'''
+              | ELSE AUX_ELSE DOS_PUNTOS EST AUX_SALIRIF END IF AUX_ENDIF PUNTO_COMA
+              | ELSIF AUX_ELSIF E AUX_ELSIF2 DOS_PUNTOS EST AUX_SALIRIF ELSIF_'''
 def p_AUX_IF(P):
     '''AUX_IF : empty'''
+    global nivel
+    nivel += 2
+    pila_saltos.append([])      # Agregamos nuevo nivel a la pila de saltos (para saltos del if)
+    pila_saltos.append([])      # Agregamos nuevo nivel a la pila de saltos (para saltos del if)
     agregarSaltoCuadruplo(True)
-    pila_cuadruplos_pendientes.append(cuadruplo_actual)
+    pila_saltos[nivel].append(cuadruplo_actual)
 def p_AUX_ELSIF(p):
     '''AUX_ELSIF : empty'''
+    global nivel
+    print(pila_saltos)
+    cuadruplos[pila_saltos[nivel].pop()-1][3] = cuadruplo_actual+1
+    pila_saltos[nivel-1].append(cuadruplo_actual)
+def p_AUX_ELSIF2(p):
+    '''AUX_ELSIF2 : empty'''
+    global nivel
     agregarSaltoCuadruplo(True)
-    pila_saltos.append(cuadruplo_actual)
-    pila_cuadruplos_pendientes.append(cuadruplo_actual)
+    pila_saltos[nivel].append(cuadruplo_actual)
 def p_AUX_ELSE(p):
     '''AUX_ELSE : empty'''
+    global nivel
     agregarSaltoCuadruplo(False)
-    pila_saltos.append(cuadruplo_actual+1)
-    pila_cuadruplos_pendientes.append(cuadruplo_actual)
+    cuadruplos[pila_saltos[nivel].pop()-1][3] = cuadruplo_actual+1
+    pila_saltos[nivel].append(cuadruplo_actual)
+def p_AUX_SALIRIF(p):
+    '''AUX_SALIRIF : empty'''
+    global nivel
+    agregarSaltoCuadruplo(False)
+    pila_saltos[nivel-1].append(cuadruplo_actual)
 def p_AUX_ENDIF(p):
     '''AUX_ENDIF : empty'''
-    pila_saltos.append(cuadruplo_actual+1)
-    print(pila_saltos)
-    while len(pila_cuadruplos_pendientes) > 0:
-        cuadruplos[pila_cuadruplos_pendientes.pop(0)-1][3] = pila_saltos.pop(0)
+    global nivel
+    while len(pila_saltos[nivel-1]) > 0:
+        cuadruplos[pila_saltos[nivel-1].pop()-1][3] = cuadruplo_actual+1
+    nivel -= 2
 
 
 # Procedimientos
@@ -452,14 +557,18 @@ def p_F(p):
 
 # Procedimiento principal
 def p_MP(p):
-    '''MP : PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
-          | PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA'''
+    '''MP : PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS MP_AUX V_M BEGIN PUNTO_COMA EST END PROCEDURE PUNTO_COMA
+          | PROCEDURE MAIN PARENTESIS_IZQUIERDO PARENTESIS_DERECHO DOS_PUNTOS MP_AUX V_M BEGIN PUNTO_COMA EST RETURN PUNTO_COMA END PROCEDURE PUNTO_COMA'''
     # agregarATablaSimbolos(p, id_index, type_index)
     agregarATablaSimbolos(p, 2, 1)
+def p_MP_AUX(p):
+    '''MP_AUX : empty'''
+    global inicio_ejecucion
+    inicio_ejecucion = cuadruplo_actual
 
 # Programa
 def p_PROGRAMA(p):
-    '''PROGRAMA : MP PROGRAMA_H'''
+    '''PROGRAMA : PROGRAMA_H MP'''
     print("\n\tSINTAXIS CORRECTA!\n")
 def p_PROGRAMA_H(p):
     '''PROGRAMA_H : empty
@@ -477,7 +586,7 @@ parser = yacc.yacc()
 
 # Abrir y seleccionar archivo para texto de entrada
 try:
-    fp = open("PruebaMixto.txt", "r")
+    fp = open("PruebaFor.txt", "r")
     inputString = fp.read()
     fp.close()
 except FileNotFoundError:
@@ -491,3 +600,12 @@ cont = 1
 for i in cuadruplos:
     print(cont, i)
     cont+=1
+
+print("\n\n\n")
+
+ejecucionCuadruplos()
+
+print("\n\n\n")
+
+for i in tabla_simbolos:
+    print(i, tabla_simbolos[i])

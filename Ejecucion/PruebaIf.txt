@@ -1,0 +1,41 @@
+procedure main():
+    int : num1;
+    float : num2;
+    int : a;
+    int : b;
+    int : c;
+    int : d;
+    int : e;
+    int : f;
+    int : g;
+    int : h;
+begin;
+    a => 8;
+    b => 1;
+
+    if a > b:
+        if 100:
+            d => 1;
+        elsif a < 10:
+            d => 10;
+        else:
+            d => 100;
+        end if;
+        h => d*e*f + 3000 - b;
+    elsif b == a:
+        if 1:
+            e => 1;
+        end if;
+        h => 1;
+    elsif b-1 == a:
+        if 1:
+            f => 1;
+        end if;
+        h => 10;
+    else:
+        if 1:
+            g => 1;
+        end if;
+        h => 100*b;
+    end if;
+end procedure;
