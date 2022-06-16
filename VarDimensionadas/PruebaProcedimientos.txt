@@ -15,7 +15,7 @@ procedure main():
     int : a;
     int : b;
 begin;
-a => 1;
+a => 0;
     for b=>1; b<10; b=>b+2:
         a => a*2;
     end loop;

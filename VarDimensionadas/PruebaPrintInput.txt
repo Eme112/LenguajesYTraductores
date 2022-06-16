@@ -1,0 +1,10 @@
+procedure main():
+    int : num1;
+    float : num2;
+    int : a;
+    int : b;
+begin;
+    a => 8;
+    b => 1;
+    input("");
+end procedure;

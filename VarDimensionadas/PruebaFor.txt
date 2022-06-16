@@ -1,0 +1,23 @@
+procedure main():
+    int : num1;
+    float : num2;
+    int : a;
+    int : b;
+    int : c;
+    int : d;
+    int : e;
+    int : f;
+    int : g;
+    int : h;
+begin;
+a => 0;
+    for b=>1; b<10; b=>b+2:
+        while(a < 500):
+            if a < 10:
+                a => a+2;
+            else:
+                a => a*2;
+            end if;
+        end loop;
+    end loop;
+end procedure;

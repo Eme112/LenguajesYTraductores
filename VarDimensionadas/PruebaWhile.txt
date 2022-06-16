@@ -1,0 +1,27 @@
+procedure main():
+    int : num1;
+    float : num2;
+    int : a;
+    int : b;
+    int : c;
+    int : d;
+    int : e;
+    int : f;
+    int : g;
+    int : h;
+begin;
+    e => 0;
+    b => 1;
+    c => 0;
+    d => 0;
+
+    while e < 10:
+        e => e+1;
+        b => b*2;
+        if e < 5:
+            c => c+1;
+        else :
+            d => d+100;
+        end if;
+    end loop;
+end procedure;

@@ -3,13 +3,13 @@
 # Nombre del Lenguaje: MP4
 
 ####################         NOTAS         ####################
-# 1. Desarrollo de print/input
-# 2. Como manejar la impresión de texto en strings?
-# 3. No detecto valores float, me marca error de sintaxis
+# 1. Ser capaz de leer valores tipo float
+# 2. Desarrollo de print/input
+# 3. Poder imprimir texto o variables
+# 4. Variables dimensionadas
 
 import ply.lex as lex
 import ply.yacc as yacc
-
 
 ####################         TOKENS Y PALABRAS RESERVADAS         ####################
 # Definicion de palabras reservadas
